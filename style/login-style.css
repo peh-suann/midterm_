@@ -1,0 +1,141 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.tr_row {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 100px;
+}
+
+.td_score {
+    table-layout: fixed;
+    width: 150px;
+}
+
+.td_comment {
+    overflow: hidden;
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis; */
+}
+
+
+.th_comment {
+    table-layout: fixed;
+    width: 350px;
+}
+
+.th_trails {
+    table-layout: fixed;
+    width: 180px;
+}
+
+.th_date {
+    table-layout: fixed;
+    width: 100px;
+}
+
+.th_rate {
+    table-layout: fixed;
+    width: 100px;
+}
+
+.th_reply {
+    table-layout: fixed;
+    width: 150px;
+}
+
+.th_member {
+    table-layout: fixed;
+    width: 100px;
+}
+
+.pagination {
+    position: relative;
+}
+
+.popup_card {
+    z-index: 1;
+    width: 50%;
+    height: 500px;
+    background-color: #F8F9FA;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 12px;
+    position: absolute;
+    left: 45%;
+    top: 30vh;
+    transform: scale(0.1);
+    visibility: hidden;
+}
+
+.popup_card_open {
+    z-index: 1;
+    width: 50%;
+    /* height: 500px; */
+    background-color: #F8F9FA;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 12px;
+    position: absolute;
+    left: 60vh;
+    top: 30vh;
+    /* transform: scale(0.1); */
+    /* visibility: hidden; */
+}
+
+.comment_area {
+    width: 50%;
+}
+
+.reply_area {
+    width: 50%;
+}
+
+.comment_box {
+    height: 200px;
+    width: 100%;
+    /* background-color: #fff; */
+    /* border: 1px solid #eeeeee; */
+}
+
+.reply_box {
+    height: 200px;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #eeeeee;
+}
+
+.form-text {
+    color: red;
+}
+
+.form-label {
+    color: #333333;
+}
+
+.login-card {
+    background-color: #F8F9FA;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    /* height: 350px; */
+    margin-top: 20%;
+}
+
+h4 {
+    margin: 0 auto;
+}
+
+#login_background {
+    background-image: url('../images/mountain.jpeg');
+    overflow: hidden;
+    height: 800px;
+}
+
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+.main{
+    margin-left: 240px;
+}
