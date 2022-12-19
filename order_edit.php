@@ -148,8 +148,6 @@ for ($i = 0; $i < count($same_order_sid_rows); $i++) {
                                         <th scope="row"><?= $i + 1 ?></th>
                                         <td>
                                             <?= $same_trail_rows[$i]['trail_name']; ?>
-                                            <br>
-                                            2022-11-11
                                         </td>
                                         <td>
                                             <input type="number" name="product_amount<?= $i ?>" id="" value="<?= $same_order_sid_rows[$i]['amount'] ?>" style="width: 50px">
