@@ -33,6 +33,9 @@ $account = $_POST['account'] ?? '';
 if($_POST['password']==$_POST['password2']){
     $password = $_POST['password'];
 }
+$emrg_name = $_POST['emrg_name'] ?? '';
+$emrg_mobile = $_POST['emrg_mobile'] ?? '';
+$emrg_relationship = $_POST['emrg_relationship'] ?? '';
 
 
 
@@ -59,6 +62,18 @@ if (!empty($mobile) and !preg_match("/^09[0-9]{2}-?[0-9]{3}-?[0-9]{3}$/",$mobile
 // personalid檢查
 if (!empty($personalid) and !preg_match("/^[A-Za-z][0-9]{9}$/",$personalid)) {
     $output['errors']['mobile'] = '手機格式不符合';
+    $isPass = false;
+}
+
+// 檢查緊急聯絡人姓名
+if (mb_strlen($emrg_name, 'utf8') < 2) {
+    $output['errors']['emrg_name'] = '請輸入正確聯絡人的姓名';
+    $isPass = false;
+}
+
+// 手機檢查  
+if (!empty($emrg_mobile) and !preg_match("/^09[0-9]{2}-?[0-9]{3}-?[0-9]{3}$/",$emrg_mobile)) {
+    $output['errors']['emrg_mobile'] = '聯絡人手機格式不符合';
     $isPass = false;
 }
 
@@ -99,10 +114,40 @@ if($isPass = true){
         1
     ]);
     
+    if ($stmt->rowCount()) {
+        $output['msg'] = '會員新增成功'; 
+    }
+
+    
+
+    $sql = "SELECT `sid` FROM `member` ORDER BY `sid` DESC LIMIT 0 , 1;";
+    $member_sid = $pdo->query($sql)->fetch();
+
+    $sql = "INSERT INTO `emergency_contact`(
+        `member_sid`, `emrg_name`, `emrg_relationship`, `emrg_mobile`
+        ) VALUES (
+        ?,?,?,?
+        )";
+
+
+    $stmt2 = $pdo->prepare($sql);
+
+    $stmt2->execute([
+        $member_sid['sid'],
+        $emrg_name,
+        $emrg_mobile,
+        $emrg_relationship,
+    ]);
+
+
     // 新增幾筆: 有新增rowCount()=1 ; 沒有則為0
     if ($stmt->rowCount()) {
-        $output['success'] = true;
+        if ($stmt2->rowCount()){
+            $output['success'] = true;
+            $output['msg'] = '會員及緊急聯絡人新增成功'; 
+        }   
     }
+
 
 }
 
