@@ -27,8 +27,8 @@ if (empty($r)) {
   <div class="row">
     <div class="col-lg-6">
       <h2>編輯優惠卷</h2>
-      <button type="button"><a href="./coupon_list.php">優惠卷列表</a></button>
-      <button type="button"><a href="./coupon_add.php">新增優惠卷</a></button>
+      <a href="./coupon_list.php" style="color: #fff;text-decoration:none;"><button type="button" class="btn btn-primary mb-1">優惠卷列表</button></a>
+      <a href="./coupon_add.php" style="color: #fff;text-decoration:none;"><button type="button" class="btn btn-primary mb-1">新增優惠卷</button></a>
       <div class="card">
         <div class="card-body">
 
