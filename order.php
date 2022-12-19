@@ -120,14 +120,10 @@ if ($total_rows > 0) {
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">
-                    <a href="">#</a>
-                </th>
+                <th scope="col">#</th>
                 <th scope="col">訂購日期</th>
                 <th scope="col">會員名稱</th>
-                <th scope="col">
-                    <a href="">訂單狀態</a>
-                </th>
+                <th scope="col">訂單狀態</th>
                 <th scope="col">訂單總價</th>
                 <th scope="col">備注</th>
                 <th scope="col">
