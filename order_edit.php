@@ -81,15 +81,15 @@ for ($i = 0; $i < count($same_order_sid_rows); $i++) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        確認刪除此筆訂單ㄇ？
+                        確認刪除此筆訂單？
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <a href="javascript: fake_delete_it(<?= $current_sid ?>)">
-                            <button type="button" class="btn btn-primary">軟刪除</button>
+                            <button type="button" class="btn btn-primary">從列表中刪除</button>
                         </a>
                         <a href="javascript: delete_it(<?= $current_sid ?>)">
-                            <button type="button" class="btn btn-primary">硬刪除</button>
+                            <button type="button" class="btn btn-primary">永久刪除</button>
                         </a>
                     </div>
                 </div>
@@ -176,13 +176,12 @@ for ($i = 0; $i < count($same_order_sid_rows); $i++) {
                                                         確認刪除此項商品？
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <?= $same_order_sid_rows[$i]['sid'] ?>
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                         <a href="javascript: fake_delete_product(<?= $current_sid ?>, <?= $same_order_sid_rows[$i]['sid'] ?>)">
-                                                            <button type="button" class="btn btn-primary">軟刪除</button>
+                                                            <button type="button" class="btn btn-primary">從列表中刪除</button>
                                                         </a>
                                                         <a href="javascript: delete_product(<?= $current_sid ?>, <?= $same_order_sid_rows[$i]['sid'] ?>)">
-                                                            <button type="button" class="btn btn-primary">硬刪除</button>
+                                                            <button type="button" class="btn btn-primary">永久刪除</button>
                                                         </a>
                                                     </div>
                                                 </div>
