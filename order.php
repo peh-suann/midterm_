@@ -247,10 +247,10 @@ if ($total_rows > 0) {
         <div class="col">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item <?= $page == 1 ? 'active' : '' ?>">
-                        <a class="page-link" href="?page=1">1</a>
+                    <li class="page-item <?= $page == 1 ? 'disable' : '' ?>">
+                        <a class="page-link" href="?page=1">第一頁</a>
                     </li>
-                    <?php if ($page > ($pag_page * 2)) : ?>
+                    <?php if ($page > ($pag_page * 2)-1) : ?>
                         <li class="page-item disabled">
                             <a class="page-link">
                                 <i class="fa-solid fa-ellipsis"></i>
@@ -258,21 +258,21 @@ if ($total_rows > 0) {
                         </li>
                     <?php endif ?>
                     <?php for ($i = $page - $pag_page; $i <= $page + $pag_page; $i++) : ?>
-                        <?php if ($i > 1 && $i < $total_pages) : ?>
+                        <?php if ($i >= 1 && $i <= $total_pages) : ?>
                             <li class="page-item <?= $page == $i ? 'active' : '' ?>">
                                 <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
                             </li>
                         <?php endif ?>
                     <?php endfor ?>
-                    <?php if ($page <= ($total_pages - ($pag_page * 2))) : ?>
+                    <?php if ($page <= ($total_pages - ($pag_page * 2)+1)) : ?>
                         <li class="page-item disabled">
                             <a class="page-link">
                                 <i class="fa-solid fa-ellipsis"></i>
                             </a>
                         </li>
                     <?php endif ?>
-                    <li class="page-item <?= $page == $total_pages ? 'active' : '' ?>">
-                        <a class="page-link" href="?page=<?= $total_pages ?>"><?= $total_pages ?></a>
+                    <li class="page-item <?= $page == $total_pages ? 'disable' : '' ?>">
+                        <a class="page-link" href="?page=<?= $total_pages ?>">最後一頁</a>
                     </li>
                 </ul>
             </nav>
