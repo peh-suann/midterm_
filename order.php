@@ -64,10 +64,7 @@ if ($total_rows > 0) {
     <div class="row mt-3">
         <div class="col">
             <form class="input-group" method="get">
-                <div class="form-outline">
-                    <input type="search" id="member_filter" name="member_filter" class="form-control" placeholder="依會員名稱篩選" />
-                </div>
-                <select class="ms-1" name="status_filter" id="status_filter" placeholder="依狀態篩選">
+                <select class="ms-1" name="status_filter" id="status_filter" placeholder="依狀態篩選" >
                     <option value="">search by status</option>
                     <?php foreach ($order_status_rows as $o_s_r) : ?>
                         <option value="<?= $o_s_r['sid'] ?>"><?= $o_s_r['status'] ?></option>
@@ -83,22 +80,9 @@ if ($total_rows > 0) {
     <?php
     // 判斷是否有篩選
     $isSelect = false;
-    // $member_filter = '';
-    // $status_filter = intval('');
-    // (isset($_GET['member_filter']) && isset($_GET['member_filter'])>0) || 
     if ((isset($_GET['status_filter']))) {
         $isSelect = true;
     }
-
-    // if(isset($_GET['member_filter'])){
-    //     $member_filter = intval($_GET['member_filter']);
-    //     $isSelect = true;
-    // }
-    // if(isset($_GET['status_filter'])){
-    //     $status_filter = intval($_GET['status_filter']);
-    //     $isSelect = true;
-    // }
-
     if ($isSelect) {
         $perPage = 10; // 每一頁最多有幾筆
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
