@@ -110,6 +110,14 @@ for ($i = 0; $i < count($current_member_row); $i++) {
                 </td>
             </tr>
             <tr>
+                <th>訂單記錄</th>
+                <td>
+                    共
+                    <?= count($current_member_row) ?>
+                    筆
+                </td>
+            </tr>
+            <tr>
                 <th scope="row" class="th_od">歷史訂單</th>
                 <td>
                     <table class="table m-0 p-0 table-borderless">
