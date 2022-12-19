@@ -38,8 +38,8 @@ if ($totalRows > 0) {
   <div class="row">
     <div class="col">
       <h2>可使用優惠卷</h2>
-      <button type="button" class="btn btn-primary ms-1"><a href="./coupon_list.php" style="color: #fff;text-decoration:none;">優惠卷列表</a></button>
-      <button type="button" class="btn btn-primary ms-1"><a href="./coupon_add.php" style="color: #fff;text-decoration:none;">新增優惠卷</a></button>
+      <a href="./coupon_list.php" style="color: #fff;text-decoration:none;"><button type="button" class="btn btn-primary ms-1">優惠卷列表</button></a>
+      <a href="./coupon_add.php" style="color: #fff;text-decoration:none;"><button type="button" class="btn btn-primary ms-1">新增優惠卷</button></a>
     </div>
   </div>
 
