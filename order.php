@@ -230,10 +230,10 @@ if ($total_rows > 0) {
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <a href="javascript: fake_delete_it(<?= $r['sid'] ?>)">
-                                    <button type="button" class="btn btn-primary">軟刪除</button>
+                                    <button type="button" class="btn btn-primary">從列表中刪除</button>
                                 </a>
                                 <a href="javascript: delete_it(<?= $r['sid'] ?>)">
-                                    <button type="button" class="btn btn-primary">硬刪除</button>
+                                    <button type="button" class="btn btn-primary">永久刪除</button>
                                 </a>
                             </div>
                         </div>
