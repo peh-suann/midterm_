@@ -130,6 +130,12 @@ h4 {
     overflow: hidden;
     height: 800px;
 }
+#index_background{
+    background-image: url('../images/mountain.jpeg');
+    overflow: hidden;
+    height: 800px;
+    width: 100%;
+}
 
 html, body{
     margin: 0;

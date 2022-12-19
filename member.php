@@ -2,6 +2,9 @@
 <?php
 $pageName = "member";
 $title = "member";
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 
 $perPage = 10; // 每一頁最多有幾筆
@@ -92,12 +95,12 @@ $rows = $pdo->query($sql)->fetchAll();
 
     ?>
 
-    <div class="row">
-        <div class="col">
-            共<?= $total_member ?>筆
-        </div>
-    </div>
-    <?php
+            <div class="row">
+                <div class="col">
+                    共<?= $total_member ?>筆
+                </div>
+            </div>
+        <?php
         }
 
         if (isset($_GET['statusq']) and strlen($_GET['statusq']) > 0) {
@@ -123,12 +126,12 @@ $rows = $pdo->query($sql)->fetchAll();
             $sql = "SELECT * FROM `member` WHERE `member_status`=$searchKey AND `display`=1 ORDER BY `sid` DESC LIMIT $first, $last";
             $rows = $pdo->query($sql)->fetchAll(); ?>
 
-    <div class="row">
-        <div class="col">
-            共<?= $total_member ?>筆
-        </div>
-    </div>
-    <?php
+            <div class="row">
+                <div class="col">
+                    共<?= $total_member ?>筆
+                </div>
+            </div>
+        <?php
         }
 
         if (isset($_GET['mobileq']) and strlen($_GET['mobileq']) > 0) {
@@ -156,11 +159,11 @@ $rows = $pdo->query($sql)->fetchAll();
 
         ?>
 
-    <div class="row">
-        <div class="col">
-            共<?= $total_member ?>筆
-        </div>
-    </div>
+            <div class="row">
+                <div class="col">
+                    共<?= $total_member ?>筆
+                </div>
+            </div>
     <?php
         }
     }
@@ -193,57 +196,51 @@ $rows = $pdo->query($sql)->fetchAll();
                 </thead>
                 <tbody class="table-group-divider">
                     <?php foreach ($rows as $r) : ?>
-                    <tr>
-                        <th scope="row"><?= $r['sid'] ?></th>
-                        <td><?= $r['account'] ?></td>
-                        <td><?= $r['name'] ?></td>
-                        <td><?= $r['mobile'] ?></td>
-                        <?php if ($r['member_status']) : ?>
-                        <td class="text-success"><?= "使用中" ?></td>
-                        <?php else : ?>
-                        <td class="text-danger"><?= "已停權" ?></td>
-                        <?php endif; ?>
-                        <td>
-                            <a href="member_edit.php?sid=<?= $r['sid'] ?>">
-                                <i class="fa-solid fa-pen-to-square text-secondary"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <a>
-                                <i class="fa-solid fa-trash-can text-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal" onclick="delete_it(<?= $r['sid'] ?>)"></i>
-                                <!-- Modal -->
-                                <div class="modal fade" id="deleteModal" tabindex="-1"
-                                    aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="deleteModalLabel">刪除資料</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    <a id="fake-delete" style="color: #fff;text-decoration:none;"
-                                                        href="">暫時刪除</a>
-                                                </button>
-                                                <button type="button" class="btn btn-danger">
-                                                    <a id="delete" style="color: #fff;text-decoration:none;"
-                                                        href="">永久刪除</a>
-                                                </button>
+                        <tr>
+                            <th scope="row"><?= $r['sid'] ?></th>
+                            <td><?= $r['account'] ?></td>
+                            <td><?= $r['name'] ?></td>
+                            <td><?= $r['mobile'] ?></td>
+                            <?php if ($r['member_status']) : ?>
+                                <td class="text-success"><?= "使用中" ?></td>
+                            <?php else : ?>
+                                <td class="text-danger"><?= "已停權" ?></td>
+                            <?php endif; ?>
+                            <td>
+                                <a href="member_edit.php?sid=<?= $r['sid'] ?>">
+                                    <i class="fa-solid fa-pen-to-square text-secondary"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a>
+                                    <i class="fa-solid fa-trash-can text-secondary" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="delete_it(<?= $r['sid'] ?>)"></i>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel">刪除資料</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        <a id="fake-delete" style="color: #fff;text-decoration:none;" href="">暫時刪除</a>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger">
+                                                        <a id="delete" style="color: #fff;text-decoration:none;" href="">永久刪除</a>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-                        </td>
-                        <td>
-                            <button style="line-height: 1.0;" type="button" class="btn btn-primary">
-                                <a style="color: #fff;text-decoration:none;"
-                                    href="member_detail.php?sid=<?= $r['sid'] ?>">詳細資料</a>
-                            </button>
-                        </td>
-                    </tr>
+                                </a>
+                            </td>
+                            <td>
+                                <button style="line-height: 1.0;" type="button" class="btn btn-primary">
+                                    <a style="color: #fff;text-decoration:none;" href="member_detail.php?sid=<?= $r['sid'] ?>">詳細資料</a>
+                                </button>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -263,24 +260,22 @@ $rows = $pdo->query($sql)->fetchAll();
                         if ($isSelect) :
                             if (!strpos($_SERVER['REQUEST_URI'], "page")) :
                         ?>
-                        <a class="page-link" href="<?= $_SERVER['REQUEST_URI'] . '&' . $new_query_string ?>"
-                            aria-label="Previous">
-                            第一頁
-                        </a>
-                        <?php else :
+                                <a class="page-link" href="<?= $_SERVER['REQUEST_URI'] . '&' . $new_query_string ?>" aria-label="Previous">
+                                    第一頁
+                                </a>
+                            <?php else :
                                 $query = explode('?', $_SERVER['REQUEST_URI']);
                                 parse_str($query[1], $data);
                                 $data['page'] = 1;
                             ?>
-                        <a class="page-link" href="<?= $query[0] . '?' . http_build_query($data); ?>"
-                            aria-label="Previous">
-                            第一頁
-                        </a>
-                        <?php endif; ?>
+                                <a class="page-link" href="<?= $query[0] . '?' . http_build_query($data); ?>" aria-label="Previous">
+                                    第一頁
+                                </a>
+                            <?php endif; ?>
                         <?php else : ?>
-                        <a class="page-link" href="?page=1" aria-label="Previous">
-                            第一頁
-                        </a>
+                            <a class="page-link" href="?page=1" aria-label="Previous">
+                                第一頁
+                            </a>
                         <?php endif; ?>
                     </li>
 
@@ -289,27 +284,27 @@ $rows = $pdo->query($sql)->fetchAll();
                     <?php for ($i = $page - 3; $i <= $page + 3; $i++) :
                         if ($i >= 1 and $i <= $totalPage) :
                     ?>
-                    <li class="page-item <?= ($page == $i) ? 'active' : '' ?>">
-                        <?php if ($isSelect) :
+                            <li class="page-item <?= ($page == $i) ? 'active' : '' ?>">
+                                <?php if ($isSelect) :
                                     $params['page']   = $i;
                                     $new_query_string = http_build_query($params);
                                     if (!strpos($_SERVER['REQUEST_URI'], "page")) :
                                 ?>
-                        <a class="page-link" href="<?= $_SERVER['REQUEST_URI'] . '&' . $new_query_string ?>"><?= $i ?>
-                        </a>
-                        <?php else :
+                                        <a class="page-link" href="<?= $_SERVER['REQUEST_URI'] . '&' . $new_query_string ?>"><?= $i ?>
+                                        </a>
+                                    <?php else :
                                         $query = explode('?', $_SERVER['REQUEST_URI']);
                                         parse_str($query[1], $data);
                                         $data['page'] = $i;
                                     ?>
-                        <a class="page-link" href="<?= $query[0] . '?' . http_build_query($data); ?>"><?= $i ?>
-                        </a>
-                        <?php endif; ?>
-                        <?php else : ?>
-                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?>
-                        </a>
-                        <?php endif; ?>
-                    </li>
+                                        <a class="page-link" href="<?= $query[0] . '?' . http_build_query($data); ?>"><?= $i ?>
+                                        </a>
+                                    <?php endif; ?>
+                                <?php else : ?>
+                                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?>
+                                    </a>
+                                <?php endif; ?>
+                            </li>
                     <?php endif;
                     endfor; ?>
 
@@ -320,24 +315,22 @@ $rows = $pdo->query($sql)->fetchAll();
                         if ($isSelect) :
                             if (!strpos($_SERVER['REQUEST_URI'], "page")) :
                         ?>
-                        <a class="page-link" href="<?= $_SERVER['REQUEST_URI'] . '&' . $new_query_string ?>"
-                            aria-label="Previous">
-                            最後一頁
-                        </a>
-                        <?php else :
+                                <a class="page-link" href="<?= $_SERVER['REQUEST_URI'] . '&' . $new_query_string ?>" aria-label="Previous">
+                                    最後一頁
+                                </a>
+                            <?php else :
                                 $query = explode('?', $_SERVER['REQUEST_URI']);
                                 parse_str($query[1], $data);
                                 $data['page'] = $totalPage;
                             ?>
-                        <a class="page-link" href="<?= $query[0] . '?' . http_build_query($data); ?>"
-                            aria-label="Previous">
-                            最後一頁
-                        </a>
-                        <?php endif; ?>
+                                <a class="page-link" href="<?= $query[0] . '?' . http_build_query($data); ?>" aria-label="Previous">
+                                    最後一頁
+                                </a>
+                            <?php endif; ?>
                         <?php else : ?>
-                        <a class="page-link" href="?page=<?= $totalPage ?>" aria-label="Previous">
-                            最後一頁
-                        </a>
+                            <a class="page-link" href="?page=<?= $totalPage ?>" aria-label="Previous">
+                                最後一頁
+                            </a>
                         <?php endif; ?>
                     </li>
 
@@ -351,9 +344,9 @@ $rows = $pdo->query($sql)->fetchAll();
             <?php
             if ($isSelect) :
             ?>
-            <button style="line-height: 1.0;" type="button" class="btn btn-secondary">
-                <a style="color: #fff;text-decoration:none;" href="member.php">回列表頁</a>
-            </button>
+                <button style="line-height: 1.0;" type="button" class="btn btn-secondary">
+                    <a style="color: #fff;text-decoration:none;" href="member.php">回列表頁</a>
+                </button>
             <?php endif;
             ?>
         </div>
@@ -366,18 +359,18 @@ $rows = $pdo->query($sql)->fetchAll();
 
 <?php require __DIR__ . '/parts/scripts.php' ?>
 <script>
-function delete_it(sid) {
-    const fakedelete = document.querySelector('#fake-delete');
-    console.log(fakedelete);
-    fakedelete.href = `member_fake-delete.php?sid=${sid}`;
-    const mdelete = document.querySelector('#delete');
-    mdelete.href = `member_delete.php?sid=${sid}`;
-}
+    function delete_it(sid) {
+        const fakedelete = document.querySelector('#fake-delete');
+        console.log(fakedelete);
+        fakedelete.href = `member_fake-delete.php?sid=${sid}`;
+        const mdelete = document.querySelector('#delete');
+        mdelete.href = `member_delete.php?sid=${sid}`;
+    }
 
-// function dosearch() {
-//     const searchIcon = document.querySelector('#searchIcon');
-//     searchIcon.href = "member.php?q=" + escape(document.querySelector('#form1').value);
-// }
+    // function dosearch() {
+    //     const searchIcon = document.querySelector('#searchIcon');
+    //     searchIcon.href = "member.php?q=" + escape(document.querySelector('#form1').value);
+    // }
 </script>
 </script>
 

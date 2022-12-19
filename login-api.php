@@ -3,7 +3,7 @@
 require __DIR__ . '/parts/connect_db.php';
 header('Content-Type: application/json');
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 //設定輸出格式
@@ -15,9 +15,9 @@ $output = [
 ];
 
 //沒有表單資料
-if(empty($_POST['account'] or empty($_POST['password']))){
+if (empty($_POST['account'] or empty($_POST['password']))) {
     $output['error'] = '資料不足';
-    $output['code'] = 100; 
+    $output['code'] = 100;
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 }
@@ -30,7 +30,7 @@ $stmt->execute([
 ]);
 
 $r = $stmt->fetch();
-if(empty($r)){
+if (empty($r)) {
     $output['error'] = '帳號或密碼錯誤';
     $output['code'] = 200;
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
@@ -41,16 +41,15 @@ if(empty($r)){
 $hash = $r['password_hash'];
 $output['success'] = password_verify($_POST['password'], $hash);
 
-if($output['success']){
+if ($output['success']) {
     $output['code'] = 300;
     $_SESSION['admin'] = [
         'sid' => $r['sid'],
         'account' => $r['account'],
     ];
-}else{
+} else {
     $output['error'] = '帳號或密碼錯誤';
     $output['code'] = 400;
 }
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
-?>

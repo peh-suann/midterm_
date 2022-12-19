@@ -2,7 +2,9 @@
 <?php
 $pageName = "trails";
 $title = "trails";
-
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 
 $perPage = 5;
@@ -40,10 +42,8 @@ if ($trails_totalRows > 0) {
 <div class="d-flex flex-column w-100">
     <div class="d-flex justify-content-between p-5">
         <div>
-            <button type="button" class="btn btn-primary"><a href="./trails.php" class="text-decoration-none"
-                    style="color:white;">商品管理</a></button>
-            <button type="button" class="btn btn-primary"><a href="./trails_add.php" class="text-decoration-none"
-                    style="color:white;">新增</a></button>
+            <button type="button" class="btn btn-primary"><a href="./trails.php" class="text-decoration-none" style="color:white;">商品管理</a></button>
+            <button type="button" class="btn btn-primary"><a href="./trails_add.php" class="text-decoration-none" style="color:white;">新增</a></button>
         </div>
         <!-- <div class="d-flex">
             <select class="form-select" aria-label="Default select example">
@@ -78,34 +78,32 @@ if ($trails_totalRows > 0) {
         </thead>
         <tbody>
             <?php foreach ($trails_rows as $t_r) : ?>
-            <tr>
-                <td class="text-center align-middle">
-                    <a href="javascript: trails_delete_it(<?= $t_r['sid'] ?>)">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </a>
-                </td>
-                <td class="text-center align-middle">
-                    <a href="trails_edit.php?sid=<?= $t_r['sid'] ?>">
-                        <i class="fa-solid fa-file-pen"></i>
-                    </a>
-                </td>
-                <td class="text-center align-middle"><?= $t_r['sid'] ?></td>
-                <td class="col-2 text-center align-middle"><?= htmlentities($t_r['trail_name']) ?></td>
-                <td class="col-2 text-center align-middle"><?= htmlentities($t_r['trail_short_describ']) ?></td>
-                <td class="col-2 text-center align-middle">
-                    <?php if ($t_r['coupon_status'] == 0) {
+                <tr>
+                    <td class="text-center align-middle">
+                        <a href="javascript: trails_delete_it(<?= $t_r['sid'] ?>)">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </td>
+                    <td class="text-center align-middle">
+                        <a href="trails_edit.php?sid=<?= $t_r['sid'] ?>">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </a>
+                    </td>
+                    <td class="text-center align-middle"><?= $t_r['sid'] ?></td>
+                    <td class="col-2 text-center align-middle"><?= htmlentities($t_r['trail_name']) ?></td>
+                    <td class="col-2 text-center align-middle"><?= htmlentities($t_r['trail_short_describ']) ?></td>
+                    <td class="col-2 text-center align-middle">
+                        <?php if ($t_r['coupon_status'] == 0) {
                             echo '否';
                         } else {
                             echo '是';
                         } ?>
-                </td>
+                    </td>
 
 
-                <td class="col-1 text-center align-middle"><?= htmlentities($t_r['price']) ?></td>
-                <td class="col text-center align-middle"> <button type="button" class="btn btn-primary"><a
-                            href="./trails_detail.php?sid=<?= $t_r['sid'] ?>" class="text-decoration-none"
-                            style="color:white;">詳細資料</a></button></td>
-            </tr>
+                    <td class="col-1 text-center align-middle"><?= htmlentities($t_r['price']) ?></td>
+                    <td class="col text-center align-middle"> <button type="button" class="btn btn-primary"><a href="./trails_detail.php?sid=<?= $t_r['sid'] ?>" class="text-decoration-none" style="color:white;">詳細資料</a></button></td>
+                </tr>
             <?php endforeach ?>
         </tbody>
     </table>
@@ -115,10 +113,10 @@ if ($trails_totalRows > 0) {
                 <a class="page-link" href="?page=1">第一頁</a>
             </li>
             <?php for ($i = $page - 5; $i <= $page + 5; $i++) : ?>
-            <?php if ($i >= 1 and $i <= $trails_totalPages) : ?>
-            <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-            </li>
+                <?php if ($i >= 1 and $i <= $trails_totalPages) : ?>
+                    <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                    </li>
             <?php
                 endif;
             endfor; ?>
@@ -130,10 +128,10 @@ if ($trails_totalRows > 0) {
 </div>
 <?php require __DIR__ . '/parts/scripts.php' ?>
 <script>
-function trails_delete_it(sid) {
-    if (confirm(`是否要刪除 ${sid} 這筆資料?`)) {
-        location.href = 'trails_delete.php?sid=' + sid;
+    function trails_delete_it(sid) {
+        if (confirm(`是否要刪除 ${sid} 這筆資料?`)) {
+            location.href = 'trails_delete.php?sid=' + sid;
+        }
     }
-}
 </script>
 <?php require __DIR__ . '/parts/html-foot.php' ?>

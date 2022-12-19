@@ -2,6 +2,9 @@
 <?php
 $pageName = "comment";
 $title = "評論管理";
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 //列表控制
 $perpage = 10; //每一頁的最高筆數
@@ -263,6 +266,7 @@ $r = $pdo->query($sql_edit)->fetch();
 <script>
     //刪除功能
     const rowData = <?= json_encode($r, JSON_UNESCAPED_UNICODE) ?>;
+    let s;
 
     function delItem(sid) {
         if (confirm(`確定要刪除編號${sid}的評論？`)) {
@@ -284,7 +288,6 @@ $r = $pdo->query($sql_edit)->fetch();
     const close_btn = document.querySelector('#close_pop');
     const ary = [];
 
-
     function openPop(ary) {
         // location.href = `?sid=${sid}`;
         event.preventDefault();
@@ -293,13 +296,7 @@ $r = $pdo->query($sql_edit)->fetch();
             // p.classList.add('popup_card_open');
 
             function save_data(ary) {
-                const reply_obj = {
-                    obj_sid: ary[0],
-                    obj_reply: ary[2],
-                    obj_comment: ary[1],
-                }
-                // console.log(reply_obj);
-                // localStorage.setItem('reply_data', JSON.stringify(reply_obj));
+
                 p_reply.innerHTML = ary[2];
                 p_comment.innerHTML = ary[1];
                 p_sid.value = `${ary[0]}`;
@@ -307,9 +304,12 @@ $r = $pdo->query($sql_edit)->fetch();
                 p_score.value = `${ary[3]}/5分`;
             }
             save_data(ary);
+            s = p_sid.value;
 
+            // console.log(s);
         }
     }
+
     //修改回覆
 
     const edit_reply = function(event) {
@@ -320,8 +320,12 @@ $r = $pdo->query($sql_edit)->fetch();
             body: fd,
         }).then(response => response.json()).then(obj => {
             console.log(obj);
-            // JSON.parse(obj);
+
         })
+        // console.log(s);
+        const link = parseInt(s / <?= $perpage ?>);
+        location.href = `comment.php?page=${link}`;
+        // location.href = document.referrer;
     }
 
     function closePop() {

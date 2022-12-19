@@ -89,7 +89,7 @@ if (!isset($_SESSION)) {
                     document.querySelector('#note').appendChild(n);
                     // setTimeout(()=> document.querySelector('.alert').remove(),3000);
                     setTimeout(() => (location.href = 'index_.php'), 500);
-
+                    // console.log($_SESSION['admin']);
 
                 } else {
                     // alert('帳號或密碼錯誤');
