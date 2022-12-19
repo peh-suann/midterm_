@@ -40,10 +40,13 @@ if ($trails_totalRows > 0) {
 <?php require __DIR__ . '/parts/navbar.php' ?>
 
 <div class="d-flex flex-column w-100">
-    <div class="d-flex justify-content-between p-5">
+    <h1 class="p-2 mx-3">商品管理</h1>
+    <div class="d-flex justify-content-between p-2 mx-3">
         <div>
-            <button type="button" class="btn btn-primary"><a href="./trails.php" class="text-decoration-none" style="color:white;">商品管理</a></button>
-            <button type="button" class="btn btn-primary"><a href="./trails_add.php" class="text-decoration-none" style="color:white;">新增</a></button>
+            <a href="./trails.php" class="text-decoration-none" style="color:white;"><button type="button"
+                    class="btn btn-primary">商品管理</button></a>
+            <a href="./trails_add.php" class="text-decoration-none" style="color:white;"><button type="button"
+                    class="btn btn-primary">新增</button></a>
         </div>
         <!-- <div class="d-flex">
             <select class="form-select" aria-label="Default select example">
@@ -102,7 +105,9 @@ if ($trails_totalRows > 0) {
 
 
                     <td class="col-1 text-center align-middle"><?= htmlentities($t_r['price']) ?></td>
-                    <td class="col text-center align-middle"> <button type="button" class="btn btn-primary"><a href="./trails_detail.php?sid=<?= $t_r['sid'] ?>" class="text-decoration-none" style="color:white;">詳細資料</a></button></td>
+                    <td class="col text-center align-middle"> <a href="./trails_detail.php?sid=<?= $t_r['sid'] ?>"
+                        class="text-decoration-none" style="color:white;"><button type="button"
+                            class="btn btn-primary">詳細資料</button></a></td>
                 </tr>
             <?php endforeach ?>
         </tbody>
