@@ -12,7 +12,7 @@ $title = "coupon_add";
   <div class="row">
     <div class="col-lg-6">
       <h2>新增優惠卷</h2>
-      <button type="button" class="btn btn-primary mb-1"><a href="./coupon_list.php" style="color: #fff;text-decoration:none;">優惠卷列表</a></button>
+      <a href="./coupon_list.php" style="color: #fff;text-decoration:none;"><button type="button" class="btn btn-primary mb-1">優惠卷列表</button></a>
       <!-- <button type="button"><a href="./coupon_add.php">add</a></button> -->
       <div class="card">
         <div class="card-body">
