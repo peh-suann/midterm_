@@ -9,8 +9,8 @@ $title = "trrails_add";
 <div class="container">
     <div class="row">
         <div class="m-3">
-            <button type="button" class="btn btn-primary"><a href="./trails.php" class="text-decoration-none"
-                    style="color:white;">返回商品</a></button>
+           <a href="./trails.php" class="text-decoration-none" style="color:white;"><button type="button"
+                    class="btn btn-primary">返回商品</button></a>
         </div>
         <div class="trails_card">
             <div class="col-6 trails_add_card_body p-4">
@@ -164,6 +164,7 @@ const checkForm = function(event) {
             console.log(obj);
             if (obj.success) {
                 alert('新增成功');
+                location.href = document.referrer;
             }
             //  else {
             //     for (let id in obj.errors) {
