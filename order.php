@@ -83,6 +83,7 @@ if ($total_rows > 0) {
     if ((isset($_GET['status_filter']))) {
         $isSelect = true;
     }
+
     if ($isSelect) {
         $perPage = 10; // 每一頁最多有幾筆
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -142,9 +143,11 @@ if ($total_rows > 0) {
                     <td><?= $r['order_date'] ?></td>
                     <td>
                         <?php foreach ($member_rows as $m_r) : ?>
+                            <a href="<?= PROJ_ROOT ?>/member_order.php?sid=<?= $r['sid'] ?>" class="link-dark">
                             <?php if ($m_r['sid'] === $r['member_sid']) {
                                 echo $m_r['name'];
                             } ?>
+                            </a>
                         <?php endforeach ?>
                     </td>
                     <td>
@@ -210,10 +213,10 @@ if ($total_rows > 0) {
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <a href="javascript: fake_delete_it(<?= $r['sid'] ?>)">
-                                    <button type="button" class="btn btn-primary">從列表中刪除</button>
+                                    <button type="button" class="btn btn-primary">軟刪除</button>
                                 </a>
                                 <a href="javascript: delete_it(<?= $r['sid'] ?>)">
-                                    <button type="button" class="btn btn-primary">永久刪除</button>
+                                    <button type="button" class="btn btn-primary">硬刪除</button>
                                 </a>
                             </div>
                         </div>
@@ -222,6 +225,7 @@ if ($total_rows > 0) {
             <?php endforeach ?>
         </tbody>
     </table>
+
     <!-- pagination -->
     <div class="row me-1">
         <div class="col">
@@ -267,32 +271,6 @@ if ($total_rows > 0) {
 
     function fake_delete_it(sid) {
         location.href = 'order_fake_delete.php?sid=' + sid;
-    }
-
-    function sortbySid() {
-        <?php
-        if ($total_rows > 0) {
-            if ($page > $total_pages) {
-                header("Location: ?page=" . $total_pages);
-                exit;
-            }
-            $sql = sprintf("SELECT * FROM `order_list` WHERE `fake_delete`=0 ORDER BY `sid` ASC LIMIT %s, %s", ($page - 1) * $per_page, $per_page);
-            $rows = $pdo->query($sql)->fetchAll();
-        }
-        ?>
-    }
-
-    function sortbySid() {
-        <?php
-        if ($total_rows > 0) {
-            if ($page > $total_pages) {
-                header("Location: ?page=" . $total_pages);
-                exit;
-            }
-            $sql = sprintf("SELECT * FROM `order_list` WHERE `fake_delete`=0 ORDER BY `order_status_sid` ASC LIMIT %s, %s", ($page - 1) * $per_page, $per_page);
-            $rows = $pdo->query($sql)->fetchAll();
-        }
-        ?>
     }
 </script>
 <?php require __DIR__ . '/parts/html-foot.php' ?>
