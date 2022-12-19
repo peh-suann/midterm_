@@ -90,10 +90,6 @@ for ($i = 0; $i < count($current_member_row); $i++) {
     <h3>會員歷史訂單</h3>
     <div class="row mx-1 gap-3 my-3">
         <button class="btn btn-primary w-auto me-auto" onclick="history.back()">上一頁</button>
-        <a href="./order_edit.php?sid=<?= $current_sid ?>" class="p-0 w-auto"><button class="btn btn-danger w-auto">修改</button></a>
-        <button class="btn btn-danger w-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            刪除
-        </button>
     </div>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
