@@ -62,9 +62,9 @@ foreach ($rows as $coupon_rate) {
 
 
       <form class="input-group  mb-1" action="coupon_list.php" method="get" class="">
-        <button type="button" class="btn btn-primary ms-1"><a href="./coupon_list.php" style="color: #fff;text-decoration:none;">返回優惠卷列表</a></button>
-        <button type="button" class="btn btn-primary ms-1"><a href="./coupon_add.php" style="color: #fff;text-decoration:none;">新增優惠卷</a></button>
-        <button type="button" class="btn btn-primary ms-1"><a href="./coupon_list_filter1.php" style="color: #fff;text-decoration:none;">可使用</a></button>
+        <a href="./coupon_list.php" style="color: #fff;text-decoration:none;"><button type="button" class="btn btn-primary ms-1">返回優惠卷列表</button></a>
+        <a href="./coupon_add.php" style="color: #fff;text-decoration:none;"><button type="button" class="btn btn-primary ms-1">新增優惠卷</button></a>
+        <a href="./coupon_list_filter1.php" style="color: #fff;text-decoration:none;"><button type="button" class="btn btn-primary ms-1">可使用</button></a>
         <select name="coupon_rate" id="coupon_rate" class="col-4 ms-1" placeholder="選擇折數">
           <option value="">選擇折數</option>
           <option value="95">95折</option>
@@ -146,7 +146,7 @@ foreach ($rows as $coupon_rate) {
   <ul class="pagination">
     <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
       <a class="page-link" href="?page=<?= $page == 1 ?>">
-        <i class="fa-solid fa-angles-left"></i>
+        <i>第一頁</i>  
       </a>
     </li>
     <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
@@ -160,7 +160,7 @@ foreach ($rows as $coupon_rate) {
     endfor; ?>
     <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
       <a class="page-link" href="?page=<?= $page += $totalPages ?>">
-        <i class="fa-solid fa-angles-right"></i>
+        <i>最後一頁</i>
       </a>
     </li>
   </ul>
