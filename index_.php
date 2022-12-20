@@ -5,6 +5,7 @@ $title = "home";
 if (!isset($_SESSION['admin'])) {
     // echo 11;
     session_start();
+    // header('Location: login.php');
 }
 ?>
 
