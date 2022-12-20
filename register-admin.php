@@ -4,13 +4,13 @@ require __DIR__ . '/parts/connect_db.php';
 $pageName = "register-admin";
 $title = "管理者註冊";
 
-if (isset($_SESSION['admin'])) {
-    header('Location: index_.php');
-    exit;
-}
-if (!isset($_SESSION)) {
-    session_start();
-}
+// if (isset($_SESSION['admin'])) {
+//     header('Location: index_.php');
+//     exit;
+// }
+// if (!isset($_SESSION)) {
+//     session_start();
+// }
 
 require __DIR__ . '/parts/html-head.php';
 

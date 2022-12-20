@@ -188,12 +188,17 @@ for ($i = 0; $i < count($same_order_sid_rows); $i++) {
                                     </tr>
                                 <?php endfor ?>
                                 <!-- <tr>
-                                    <th><?php //count($same_order_sid_rows) + 1 ?></th>
+                                    <th><?php //count($same_order_sid_rows) + 1 
+                                        ?></th>
                                     <td>
                                         <select class="form-select form-select-sm add_product" aria-label=".form-select-sm example">
-                                            <?php //foreach ($trails_rows as $t_r) : ?>
-                                                <option value="<?php //$t_r['sid'] ?>"><?php //$t_r['trail_name'] ?></option>
-                                            <?php //endforeach ?>
+                                            <?php //foreach ($trails_rows as $t_r) : 
+                                            ?>
+                                                <option value="<?php //$t_r['sid'] 
+                                                                ?>"><?php //$t_r['trail_name'] 
+                                                                                        ?></option>
+                                            <?php //endforeach 
+                                            ?>
                                         </select>
                                     </td>
                                     <td>
@@ -202,7 +207,8 @@ for ($i = 0; $i < count($same_order_sid_rows); $i++) {
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <a href="javascript: fake_delete_it(<?php //$current_sid ?>)">
+                                        <a href="javascript: fake_delete_it(<?php //$current_sid 
+                                                                            ?>)">
                                             <button type="button" class="btn btn-success btn-sm">
                                                 <i class="fa-solid fa-plus"></i>
                                             </button>
