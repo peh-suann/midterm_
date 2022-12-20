@@ -1,10 +1,11 @@
-<?php require __DIR__ . '/parts/connect_db.php'; 
+<?php require __DIR__ . '/parts/connect_db.php';
 
 unset($_SESSION['admin']);
 
+
 ?>
 <script>
-alert('已登出');
+    // console.log(10);
+    alert('已登出');
+    location.href = '/peh-suann.github.io/login.php';
 </script>
-
-<?php header('Location: index_.php'); ?>

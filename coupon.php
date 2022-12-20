@@ -2,6 +2,9 @@
 <?php
 $pageName = "coupon";
 $title = "coupon";
+if (!isset($_SESSION)) {
+    session_start();
+}
 ?>
 <?php require __DIR__ . '/parts/html-head.php' ?>
 <?php require __DIR__ . '/parts/navbar.php' ?>

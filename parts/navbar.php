@@ -1,5 +1,5 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 240px; height: 100vh; position: fixed;">
-    <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+    <a href="<?= PROJ_ROOT ?>/index_.php" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
         <i class="fa-brands fa-bootstrap"></i>
         <span class="fs-4">PEH-SUANN</span>
     </a>

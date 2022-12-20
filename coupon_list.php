@@ -2,6 +2,9 @@
 <?php
 $pageName = "coupon";
 $title = "coupon";
+if (!isset($_SESSION)) {
+  session_start();
+}
 
 $perPage = 5; // 每一頁最多有幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -146,7 +149,7 @@ foreach ($rows as $coupon_rate) {
   <ul class="pagination">
     <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
       <a class="page-link" href="?page=<?= $page == 1 ?>">
-        <i>第一頁</i>  
+        <i>第一頁</i>
       </a>
     </li>
     <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
