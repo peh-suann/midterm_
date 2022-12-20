@@ -7,6 +7,8 @@ if (empty($sid)) {
   exit;
 }
 
+
+$pdo->query("DELETE FROM `emergency_contact` WHERE `member_sid`=$sid");
 $pdo->query("DELETE FROM `member` WHERE sid=$sid");
 
 

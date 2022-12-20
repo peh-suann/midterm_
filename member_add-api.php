@@ -135,8 +135,8 @@ if($isPass = true){
     $stmt2->execute([
         $member_sid['sid'],
         $emrg_name,
-        $emrg_mobile,
         $emrg_relationship,
+        $emrg_mobile,
     ]);
 
 
