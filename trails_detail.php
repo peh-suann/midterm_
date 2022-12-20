@@ -28,7 +28,7 @@ $trails_details = $pdo->query($sql)->fetchAll();
         </div>
         <div class="trails_card">
             <div class="trails_add_card_body p-4">
-                <h1 class="trails_add_card_title">商品詳細內容</h1>
+                <h1 class="trails_add_card_title pb-4">商品詳細內容</h1>
                 <input type="hidden" name="sid" value="<?= $t_d['trail_sid'] ?>">
                 <table>
                     <?php foreach ($trails_details as $t_d) : ?>
