@@ -42,12 +42,12 @@ if (empty($re)) {
                 <input type="hidden" name="sid" value="<?= $r['sid'] ?>">
                 <table class="table">
                     <tr>
-                        <th scope="row"><label for="name" class="col-form-label">姓名</label></th>
+                        <th scope="row"><label for="name" class="col-form-label">姓名*</label></th>
                         <td><input type="text" class="form-control" id="name" name="name" required
                                 value="<?= htmlentities($r['name']) ?>"></td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="account" class="col-form-label">帳號</label></th>
+                        <th scope="row"><label for="account" class="col-form-label">帳號*</label></th>
                         <td><input type="text" class="form-control" id="account" name="account" required
                                 value="<?= $r['account'] ?>"></td>
                     </tr>
@@ -62,27 +62,27 @@ if (empty($re)) {
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="birthday" class="col-form-label">生日</label></th>
+                        <th scope="row"><label for="birthday" class="col-form-label">生日*</label></th>
                         <td colspan="2"><input type="date" class="form-control" id="birthday" name="birthday" required
                                 value="<?= $r['birthday'] ?>"></td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="mobile" class="col-form-label">手機</label></th>
+                        <th scope="row"><label for="mobile" class="col-form-label">手機*</label></th>
                         <td colspan="2"><input type="text" class="form-control" id="mobile" name="mobile" required
                                 value="<?= $r['mobile'] ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row"><label for="address" class="col-form-label">地址</label></th>
-                        <td colspan="2"><input type="text" class="form-control" id="address" name="address" required
+                        <td colspan="2"><input type="text" class="form-control" id="address" name="address"
                                 value="<?= $r['address'] ?>"></td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="email" class="col-form-label">email</label></th>
+                        <th scope="row"><label for="email" class="col-form-label">email*</label></th>
                         <td colspan="2"><input type="text" class="form-control" id="email" name="email" required
                                 value="<?= $r['email'] ?>"></td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="personalid" class="col-form-label">身分證字號</label></th>
+                        <th scope="row"><label for="personalid" class="col-form-label">身分證字號*</label></th>
                         <td colspan="2"><input type="text" class="form-control" id="personalid" name="personalid"
                                 required value="<?= $r['personal_id'] ?>"></td>
                     </tr>
@@ -100,12 +100,12 @@ if (empty($re)) {
                 <table class="table mt-2">
                     <h6>緊急聯絡人</h6>
                     <tr>
-                        <th scope="row">姓名</th>
+                        <th scope="row">姓名*</th>
                         <td><input type="text" class="form-control" id="ermg_name" name="ermg_name" required
                                 value="<?= htmlentities($re['emrg_name']) ?>"></td>
                     </tr>
                     <tr>
-                        <th scope="row">手機</th>
+                        <th scope="row">手機*</th>
                         <td><input type="text" class="form-control" id="emrg_mobile" name="emrg_mobile" required
                                 value="<?= $re['emrg_mobile'] ?>"></td>
                     </tr>
