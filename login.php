@@ -34,6 +34,10 @@ if (!isset($_SESSION)) {
                     <div class="form-text"></div>
                 </div>
                 <button type="submit" class="btn btn-primary mb-3 ">登入</button>
+                <a href="./register-admin.php">
+                    <button type="button" class="btn btn-primary mb-3 ">註冊管理者</button>
+                </a>
+
             </form>
         </div>
     </div>
