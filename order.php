@@ -2,9 +2,7 @@
 <?php
 $pageName = "order";
 $title = "order";
-if (!isset($_SESSION)) {
-    session_start();
-}
+
 // ----------------------------------------------------------------------------
 // 取得資料庫中的資料
 // ----------------------------------------------------------------------------
@@ -66,7 +64,7 @@ if ($total_rows > 0) {
     <div class="row mt-3">
         <div class="col">
             <form class="input-group" method="get">
-                <select class="ms-1" name="status_filter" id="status_filter" placeholder="依狀態篩選">
+                <select class="ms-1" name="status_filter" id="status_filter" placeholder="依狀態篩選" >
                     <option value="">search by status</option>
                     <?php foreach ($order_status_rows as $o_s_r) : ?>
                         <option value="<?= $o_s_r['sid'] ?>"><?= $o_s_r['status'] ?></option>
@@ -145,10 +143,10 @@ if ($total_rows > 0) {
                     <td><?= $r['order_date'] ?></td>
                     <td>
                         <?php foreach ($member_rows as $m_r) : ?>
-                            <a href="<?= PROJ_ROOT ?>/member_order.php?sid=<?= $r['sid'] ?>" class="link-dark">
-                                <?php if ($m_r['sid'] === $r['member_sid']) {
-                                    echo $m_r['name'];
-                                } ?>
+                            <a href="<?= PROJ_ROOT ?>/member_order.php?member_sid=<?= $m_r['sid'] ?>" class="link-dark">
+                            <?php if ($m_r['sid'] === $r['member_sid']) {
+                                echo $m_r['name'];
+                            } ?>
                             </a>
                         <?php endforeach ?>
                     </td>
@@ -215,10 +213,10 @@ if ($total_rows > 0) {
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <a href="javascript: fake_delete_it(<?= $r['sid'] ?>)">
-                                    <button type="button" class="btn btn-primary">軟刪除</button>
+                                    <button type="button" class="btn btn-primary">從列表中刪除</button>
                                 </a>
                                 <a href="javascript: delete_it(<?= $r['sid'] ?>)">
-                                    <button type="button" class="btn btn-primary">硬刪除</button>
+                                    <button type="button" class="btn btn-primary">永久刪除</button>
                                 </a>
                             </div>
                         </div>
@@ -236,7 +234,7 @@ if ($total_rows > 0) {
                     <li class="page-item <?= $page == 1 ? 'disable' : '' ?>">
                         <a class="page-link" href="?page=1">第一頁</a>
                     </li>
-                    <?php if ($page > ($pag_page * 2) - 1) : ?>
+                    <?php if ($page > ($pag_page * 2)-1) : ?>
                         <li class="page-item disabled">
                             <a class="page-link">
                                 <i class="fa-solid fa-ellipsis"></i>
@@ -250,7 +248,7 @@ if ($total_rows > 0) {
                             </li>
                         <?php endif ?>
                     <?php endfor ?>
-                    <?php if ($page <= ($total_pages - ($pag_page * 2) + 1)) : ?>
+                    <?php if ($page <= ($total_pages - ($pag_page * 2)+1)) : ?>
                         <li class="page-item disabled">
                             <a class="page-link">
                                 <i class="fa-solid fa-ellipsis"></i>

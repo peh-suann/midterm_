@@ -35,26 +35,22 @@ if (empty($re)) {
 
 <div class="container">
     <h2 class="mt-3">會員管理</h2>
-    <div class="row">
-        <div class="col-8">
-            <button style="line-height: 1.0;" type="button" class="btn btn-primary">
-                <a style="color: #fff;text-decoration:none;" onclick="history.back()">回上一頁</a>
-            </button>
-            <button style="line-height: 1.0;" type="button" class="btn btn-info">
-                <a style="color: #fff;text-decoration:none;" href="member_edit.php?sid=<?= $r['sid'] ?>">編輯會員</a>
-            </button>
-            <!-- <button style="line-height: 1.0;" type="button" class="btn btn-warning">
-                <a style="color: #fff;text-decoration:none;" href="member_edit.php?sid=<?= $r['sid'] ?>">刪除會員</a>
-            </button> -->
-            <!-- Button trigger modal -->
-            <button style="line-height: 1.0;color: #fff;" type="button" class="btn btn-warning" data-bs-toggle="modal"
-                data-bs-target="#deleteModal">
+    <div class="row" style="width: 80%;">
+        <!-- <div class="col"> -->
+            <a style="color: #fff;text-decoration:none;" class="w-auto px-0 " onclick="history.back()">
+                <button style="line-height: 1.0;margin-left:5px;" type="button" class="btn btn-primary w-auto ml-1">
+                    回上一頁</button>
+            </a>
+            <a style="text-decoration:none;" class="w-auto px-0" href="member_edit.php?sid=<?= $r['sid'] ?>">
+                <button style="line-height: 1.0;color: #fff;margin-left:5px;" type="button" class="btn btn-info w-auto">編輯會員</button>
+            </a>
+            <button style="line-height: 1.0;color: #fff;margin-left:5px;" type="button" class="btn btn-warning me-auto w-auto" data-bs-toggle="modal" data-bs-target="#deleteModal">
                 刪除會員
             </button>
+            <a href="<?= PROJ_ROOT ?>/member_order.php?member_sid=<?= $r['sid']?>" class="w-auto"><button style="line-height: 1.0;color: #fff;" class="btn btn-primary w-auto">歷史訂單</button></a>
 
             <!-- Modal -->
-            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -62,19 +58,18 @@ if (empty($re)) {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                <a style="color: #fff;text-decoration:none;"
-                                    href="member_fake-delete.php?sid=<?= $r['sid'] ?>">暫時刪除</a>
-                            </button>
-                            <button type="button" class="btn btn-danger">
-                                <a style="color: #fff;text-decoration:none;"
-                                    href="member_delete.php?sid=<?= $r['sid'] ?>">永久刪除</a>
-                            </button>
+                            <a style="color: #fff;text-decoration:none;" href="member_fake-delete.php?sid=<?= $r['sid'] ?>">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">列表中刪除</button>
+                            </a>
+                            <a style="color: #fff;text-decoration:none;" href="member_delete.php?sid=<?= $r['sid'] ?>">
+                                <button type="button" class="btn btn-danger">永久刪除</button>
+                            </a>
+
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <!-- </div> -->
     </div>
 
     <div class="row">

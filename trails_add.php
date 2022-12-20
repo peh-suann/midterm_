@@ -6,6 +6,19 @@ $title = "trrails_add";
 <?php require __DIR__ . '/parts/html-head.php' ?>
 <?php require __DIR__ . '/parts/navbar.php' ?>
 
+<style>
+.trails_add_card_title {
+    border-bottom: 1px solid rgb(211, 211, 211);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.trails_add_card_body {
+    border: 1px solid rgb(211, 211, 211);
+    border-radius: 20px;
+}
+</style>
+
 <div class="container">
     <div class="row">
         <div class="m-3">
