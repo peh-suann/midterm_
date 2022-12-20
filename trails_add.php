@@ -24,13 +24,6 @@ $title = "trrails_add";
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">圖片</label>
-                        <input type="text" class="form-control" id="trail_img" aria-describedby="emailHelp"
-                            name="trail_img">
-                        <div class="form-text"></div>
-                    </div>
-
-                    <div class="mb-3">
                         <label class="form-label">描述</label>
                         <input type="text" class="form-control" id="trail_describ" aria-describedby="emailHelp"
                             name="trail_describ">
