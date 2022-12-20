@@ -27,8 +27,8 @@ if (empty($row)) {
     <div class="row">
 
         <div class="trails_card">
-            <button type="button" class="btn btn-primary m-3"><a href="./trails.php" class="text-decoration-none"
-                    style="color:white;">返回</a>
+             <a href="./trails.php" class="text-decoration-none" style="color:white;"><button type="button"
+                    class="btn btn-primary m-3">返回</button></a>
             </button>
             <div class="col-6 trails_add_card_body p-4">
                 <h1 class="trails_add_card_title">編輯商品</h1>
