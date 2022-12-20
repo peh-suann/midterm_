@@ -105,10 +105,10 @@ $r = $pdo->query($sql_edit)->fetch();
                         </div>
                         <form name="edit_form" method="POST" class=" d-flex flex-column" onsubmit="edit_reply(event)">
                             <label for="reply_sid" class="form-label text-center">評論編號</label>
-                            <input type="text" name="reply_sid" id="reply_sid" class="form-control" value="<?= $rows['sid'] ?>">
+                            <input type="text" name="reply_sid" id="reply_sid" class="form-control" value="<?= $r['sid'] ?>">
                             <!-- <input type="text" name="reply_name" id="reply_name" class="form-control" disabled="disabled" value=""> -->
                             <label for="reply_score" class="form-label text-center">評分</label>
-                            <input type="text" name="reply_score" id="reply_score" class="form-control" disabled="disabled" value="<?= $rows['score'] ?>/5">
+                            <input type="text" name="reply_score" id="reply_score" class="form-control" disabled="disabled" value="<?= $r['score'] ?>/5">
 
                             <label for="reply_show" class="form-label text-center mt-3">編輯回覆</label>
                             <textarea name="reply_show" class="form-control mt-3" id="reply_show" rows="10" cols="50"></textarea>
@@ -140,10 +140,10 @@ $r = $pdo->query($sql_edit)->fetch();
                 </div>
                 <form name="edit_form" method="POST" class="reply_area d-flex flex-column" onsubmit="edit_reply(event)">
                     <label for="reply_sid" class="form-label text-center">評論編號</label>
-                    <input type="text" name="reply_sid" id="reply_sid" class="form-control" value="<?= $rows['sid'] ?>">
+                    <input type="text" name="reply_sid" id="reply_sid" class="form-control" value="<?= $r['sid'] ?>">
                     
                     <label for="reply_score" class="form-label text-center">評分</label>
-                    <input type="text" name="reply_score" id="reply_score" class="form-control" disabled="disabled" value="<?= $rows['score'] ?>/5">
+                    <input type="text" name="reply_score" id="reply_score" class="form-control" disabled="disabled" value="<?= $r['score'] ?>/5">
 
                     <label for="reply_show" class="form-label text-center mt-3">編輯回覆</label>
                     <textarea name="reply_show" class="form-control mt-3" id="reply_show" rows="10" cols="50"></textarea>

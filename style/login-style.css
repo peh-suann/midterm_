@@ -128,17 +128,17 @@ h4 {
 #login_background {
     background-image: url('../images/mountain.jpeg');
     overflow: hidden;
-    height: 800px;
+    height: 100vh;
 }
 #register_background {
     background-image: url('../images/mountain.jpeg');
     overflow: hidden;
-    height: 800px;
+    height: 100vh;
 }
 #index_background{
     background-image: url('../images/mountain.jpeg');
     overflow: hidden;
-    height: 800px;
+    height: 100vh;
     width: 100%;
 }
 
