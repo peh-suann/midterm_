@@ -36,8 +36,8 @@ require __DIR__ . '/parts/html-head.php';
         margin: 0 auto;
     }
 </style>
-<?php require __DIR__ . '/parts/navbar.php'; ?>
-<div id="register_background">
+
+<div class="col-12" id="register_background">
     <div class="container col-6">
         <div class="row login-card pt-3">
             <h4>peh-suann註冊管理者</h4>

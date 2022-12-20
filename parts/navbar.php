@@ -54,6 +54,12 @@
                     登出
                 </a>
             </li>
+            <li>
+                <a href="<?= PROJ_ROOT ?>/register-admin.php" class="nav-link link-dark <?= $pageName == 'logout' ? 'active' : '' ?>">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    註冊管理者
+                </a>
+            </li>
         <?php else : ?>
             <li>
                 <a href="<?= PROJ_ROOT ?>/login.php" class="nav-link link-dark <?= $pageName == 'login' ? 'active' : '' ?>">
@@ -64,7 +70,7 @@
             <li>
                 <a href="<?= PROJ_ROOT ?>/register-admin.php" class="nav-link link-dark <?= $pageName == 'logout' ? 'active' : '' ?>">
                     <i class="fa-solid fa-right-from-bracket"></i>
-                    註冊
+                    註冊管理者
                 </a>
             </li>
         <?php endif ?>

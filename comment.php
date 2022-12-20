@@ -271,7 +271,7 @@ $r = $pdo->query($sql_edit)->fetch();
     function delItem(sid) {
         if (confirm(`確定要刪除編號${sid}的評論？`)) {
             // event.currentTarget.closest('tr').remove();
-            location.href = 'comment-delete.php?sid=' + sid;
+            location.href = 'comment-delete-api.php?sid=' + sid;
             console.log('ok');
         } else {
             console.log('canceled');
