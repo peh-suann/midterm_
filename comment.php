@@ -323,7 +323,7 @@ $r = $pdo->query($sql_edit)->fetch();
 
         })
         // console.log(s);
-        const link = parseInt(s / <?= $perpage ?>);
+        const link = Math.ceil(s / <?= $perpage ?>);
         location.href = `comment.php?page=${link}`;
         // location.href = document.referrer;
     }
