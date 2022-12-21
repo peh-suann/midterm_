@@ -55,7 +55,7 @@ $sid = isset($_GET['member_sid']) ? intval($_GET['member_sid']) : 0;
                         <label for="mobile" class="col-form-label">手機*</label>
                     </div>
                     <div class="col-auto">
-                        <input type="number" id="mobile" name="mobile" class="form-control" required>
+                        <input type="tel" id="mobile" name="mobile" class="form-control" required>
                     </div>
                     <div class="col-auto">
                         <span id="mobile" class="form-text"></span>
@@ -77,7 +77,7 @@ $sid = isset($_GET['member_sid']) ? intval($_GET['member_sid']) : 0;
                         <label for="email" class="col-form-label">email*</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text" id="email" name="email" class="form-control" required>
+                        <input type="email" id="email" name="email" class="form-control" required>
                     </div>
                     <div class="col-auto">
                         <span id="email" class="form-text"></span>
@@ -156,7 +156,7 @@ $sid = isset($_GET['member_sid']) ? intval($_GET['member_sid']) : 0;
                         <label for="emrg_mobile" class="col-form-label">手機*</label>
                     </div>
                     <div class="col-auto">
-                        <input type="number" id="emrg_mobile" name="emrg_mobile" class="form-control" required>
+                        <input type="tel" id="emrg_mobile" name="emrg_mobile" class="form-control" required>
                     </div>
                     <div class="col-auto">
                         <span id="emrg_mobile" class="form-text"></span>
