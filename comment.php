@@ -59,6 +59,14 @@ $r = $pdo->query($sql_edit)->fetch();
 <div class="container">
     <div class="row">
         <h2>comment</h2>
+        <!-- breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?= PROJ_ROOT ?>/index_.php">後台首頁</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a href="<?= PROJ_ROOT ?>/comment.php">評論管理</a></li>
+                <!-- <li class="breadcrumb-item active" aria-current="page">Data</li> -->
+            </ol>
+        </nav>
         <!-- 篩選功能欄位 -->
 
         <!-- pagination -->
@@ -106,16 +114,16 @@ $r = $pdo->query($sql_edit)->fetch();
                         <form name="edit_form" method="POST" class=" d-flex flex-column" onsubmit="edit_reply(event)">
                             <label for="reply_sid" class="form-label text-center">評論編號</label>
                             <input type="text" name="reply_sid" id="reply_sid" class="form-control" value="<?= $r['sid'] ?>">
-                            <!-- <input type="text" name="reply_name" id="reply_name" class="form-control" disabled="disabled" value=""> -->
+
                             <label for="reply_score" class="form-label text-center">評分</label>
                             <input type="text" name="reply_score" id="reply_score" class="form-control" disabled="disabled" value="<?= $r['score'] ?>/5">
 
                             <label for="reply_show" class="form-label text-center mt-3">編輯回覆</label>
                             <textarea name="reply_show" class="form-control mt-3" id="reply_show" rows="10" cols="50"></textarea>
-                            <!-- <button class="btn btn-primary mt-3 mb-3" type="submit">送出</button> -->
+
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                                <!-- <button type="submit" class="btn btn-primary">Save changes</button> -->
+
                                 <button class="btn btn-primary mt-3 mb-3" type="submit">送出</button>
                             </div>
                         </form>
@@ -125,34 +133,6 @@ $r = $pdo->query($sql_edit)->fetch();
                 </div>
             </div>
         </div>
-        <!-- 跳出修改視窗 -->
-
-        <!-- <div class="popup_card" id="popup_card">
-            <div class="popup_flex d-flex pt-3">
-                <i class="fa-regular fa-circle-xmark" onclick="closePop()" id="close_pop"></i>
-                <div class="comment_area me-2">
-                    <h6 class="text-center">顧客評價</h6>
-                    <div class="comment_box">
-                        <p class=" pt-3 pe-2" id="comment_show">
-
-                        </p>
-                    </div>
-                </div>
-                <form name="edit_form" method="POST" class="reply_area d-flex flex-column" onsubmit="edit_reply(event)">
-                    <label for="reply_sid" class="form-label text-center">評論編號</label>
-                    <input type="text" name="reply_sid" id="reply_sid" class="form-control" value="<?= $r['sid'] ?>">
-                    
-                    <label for="reply_score" class="form-label text-center">評分</label>
-                    <input type="text" name="reply_score" id="reply_score" class="form-control" disabled="disabled" value="<?= $r['score'] ?>/5">
-
-                    <label for="reply_show" class="form-label text-center mt-3">編輯回覆</label>
-                    <textarea name="reply_show" class="form-control mt-3" id="reply_show" rows="10" cols="50"></textarea>
-                    <button class="btn btn-primary mt-3 mb-3" type="submit">送出</button>
-                </form>
-
-            </div>
-        </div> -->
-
         <!-- 表格 -->
         <table class="table table-striped table-hover align-middle">
             <thead class="">
@@ -198,7 +178,6 @@ $r = $pdo->query($sql_edit)->fetch();
                             }
                             ?>
                         </td>
-
                         <td>
                             <?php foreach ($trail_rows as $t_r) : ?>
                                 <?php
@@ -227,7 +206,6 @@ $r = $pdo->query($sql_edit)->fetch();
                             <button type="button" class="btn btn-<?= $reply_btn ?>" onclick="openPop([<?= $r['sid'] ?>,'<?= $r['comment'] ?>','<?= $r['reply'] ?>','<?= $r['score'] ?>'])" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 <?= $reply_btn_text ?>
                             </button>
-                            <!-- <a class="btn btn-<?= $reply_btn ?>" onclick="openPop([<?= $r['sid'] ?>,'<?= $r['comment'] ?>','<?= $r['reply'] ?>','<?= $r['score'] ?>'])"> <?= $reply_btn_text ?></a> -->
                             <a class="btn btn-warning mt-1" onclick="delItem(<?= $r['sid'] ?>)">
                                 刪除
                             </a>
@@ -289,12 +267,8 @@ $r = $pdo->query($sql_edit)->fetch();
     const ary = [];
 
     function openPop(ary) {
-        // location.href = `?sid=${sid}`;
         event.preventDefault();
         if (ary) {
-            // p.classList.remove('popup_card');
-            // p.classList.add('popup_card_open');
-
             function save_data(ary) {
 
                 p_reply.innerHTML = ary[2];
@@ -306,7 +280,6 @@ $r = $pdo->query($sql_edit)->fetch();
             save_data(ary);
             s = p_sid.value;
 
-            // console.log(s);
         }
     }
 
@@ -325,12 +298,6 @@ $r = $pdo->query($sql_edit)->fetch();
         // console.log(s);
         const link = Math.ceil(s / <?= $perpage ?>);
         location.href = `comment.php?page=${link}`;
-        // location.href = document.referrer;
-    }
-
-    function closePop() {
-        p.classList.remove('popup_card_open');
-        p.classList.add('popup_card');
     }
 </script>
 <?php require __DIR__ . '/parts/html-foot.php' ?>

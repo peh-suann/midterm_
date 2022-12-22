@@ -55,33 +55,7 @@ body {
     position: relative;
 }
 
-.popup_card {
-    z-index: 1;
-    width: 50%;
-    height: 500px;
-    background-color: #F8F9FA;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 12px;
-    position: absolute;
-    left: 45%;
-    top: 30vh;
-    transform: scale(0.1);
-    visibility: hidden;
-}
 
-.popup_card_open {
-    z-index: 1;
-    width: 50%;
-    /* height: 500px; */
-    background-color: #F8F9FA;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 12px;
-    position: absolute;
-    left: 60vh;
-    top: 30vh;
-    /* transform: scale(0.1); */
-    /* visibility: hidden; */
-}
 
 .comment_area {
     width: 50%;
