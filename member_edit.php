@@ -68,7 +68,7 @@ if (empty($re)) {
                     </tr>
                     <tr>
                         <th scope="row"><label for="mobile" class="col-form-label">手機*</label></th>
-                        <td colspan="2"><input type="text" class="form-control" id="mobile" name="mobile" required
+                        <td colspan="2"><input type="tel" class="form-control" id="mobile" name="mobile" required
                                 value="<?= $r['mobile'] ?>"></td>
                     </tr>
                     <tr>
@@ -78,7 +78,7 @@ if (empty($re)) {
                     </tr>
                     <tr>
                         <th scope="row"><label for="email" class="col-form-label">email*</label></th>
-                        <td colspan="2"><input type="text" class="form-control" id="email" name="email" required
+                        <td colspan="2"><input type="email" class="form-control" id="email" name="email" required
                                 value="<?= $r['email'] ?>"></td>
                     </tr>
                     <tr>
@@ -106,7 +106,7 @@ if (empty($re)) {
                     </tr>
                     <tr>
                         <th scope="row">手機*</th>
-                        <td><input type="text" class="form-control" id="emrg_mobile" name="emrg_mobile" required
+                        <td><input type="tel" class="form-control" id="emrg_mobile" name="emrg_mobile" required
                                 value="<?= $re['emrg_mobile'] ?>"></td>
                     </tr>
                     <tr>
