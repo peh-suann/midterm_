@@ -7,6 +7,7 @@ if (!isset($_SESSION)) {
 }
 
 //列表控制
+
 $perpage = 10; //每一頁的最高筆數
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 if ($page < 1) {
@@ -58,38 +59,97 @@ $r = $pdo->query($sql_edit)->fetch();
 <?php require __DIR__ . '/parts/navbar.php' ?>
 <div class="container">
     <div class="row">
-        <h2>comment</h2>
-        <!-- breadcrumb -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?= PROJ_ROOT ?>/index_.php">後台首頁</a></li>
-                <li class="breadcrumb-item" aria-current="page"><a href="<?= PROJ_ROOT ?>/comment.php">評論管理</a></li>
-                <!-- <li class="breadcrumb-item active" aria-current="page">Data</li> -->
-            </ol>
-        </nav>
+        <h2>評論管理</h2>
+        <div class="col-12 d-flex justify-content-between">
+            <!-- breadcrumb -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="<?= PROJ_ROOT ?>/index_.php">後台首頁</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="<?= PROJ_ROOT ?>/comment.php">評論管理</a></li>
+                    <!-- <li class="breadcrumb-item active" aria-current="page">Data</li> -->
+                </ol>
+            </nav>
+            <!-- 新增評論按鈕 -->
+            <a style="text-decoration:none;" href="comment_add.php">
+                <button style="color: #fff;line-height: 1.0;" type="button" class="btn btn-info">新增評論</button>
+            </a>
+        </div>
         <!-- 篩選功能欄位 -->
+        <div class="d-flex justify-content-between align-item-center">
+            <div class="row ">
+                <div class="col">
+                    <form class="input-group" method="get">
+                        <div class="form-outline">
+                            <input type="search" id="accountq" name="accountq" class="form-control" placeholder="依評論人篩選" />
+                        </div>
+                        <select class="ms-1" name="scoreq" id="scoreq" placeholder="依評分篩選">
+                            <option value="">依評分篩選</option>
+                            <option value="1">五星評論</option>
+                            <option value="2">四星評論</option>
+                            <option value="3">三星評論</option>
+                            <option value="4">二星評論</option>
+                            <option value="5">一星評論</option>
+                        </select>
+                        <select class="ms-1" name="replyq" id="replyq" placeholder="依狀態篩選">
+                            <option value="">依評價篩選</option>
+                            <option value="1">已回覆</option>
+                            <option value="0">未回覆</option>
+                        </select>
 
-        <!-- pagination -->
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=1">第一頁</a>
-                </li>
-                <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
-                    if ($i >= 1 and $i <= $totalPages) :
-                ?>
-                        <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                        </li>
-                <?php
-                    endif;
-                endfor;
-                ?>
-                <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $totalPages ?>">最後一頁</a>
-                </li>
-            </ul>
-        </nav>
+                        <!-- <a id="searchIcon" href=""> -->
+                        <button type="submit" class="btn btn-primary ms-1">
+                            送出
+                        </button>
+                        <!-- </a> -->
+                    </form>
+                </div>
+            </div>
+            <?php
+            $isSelect = false;
+            //判斷是否有篩選
+            if ((isset($_GET['accountq']) and strlen($_GET['accountq']) > 0) or (isset($_GET['replyq']) and strlen($_GET['replyq']) > 0) or (isset($_GET['scoreq']) and strlen($_GET['scoreq']) > 0)) {
+                $isSelect = true;
+            }
+            //有下篩選的話要怎麼呈現？
+            if ($isSelect) {
+                //篩選人名字
+                if (isset($_GET['accountq']) and strlen($_GET['accountq']) > 0) {
+                    $searchKey = isset($_GET['accountq']) ? ($_GET['accountq']) : '';
+                }
+                //篩選人評分
+                if (isset($_GET['accountq']) and strlen($_GET['accountq']) > 0) {
+                    $searchKey = isset($_GET['accountq']) ? ($_GET['accountq']) : '';
+                }
+                //已回覆？
+                if (isset($_GET['replyq']) and strlen($_GET['replyq']) > 0) {
+                    $searchKey = isset($_GET['replyq']) ? ($_GET['replyq']) : '';
+                    // $replyq_sql = "SELECT COUNT(1) FROM `rating` WHERE `reply`"
+
+                }
+            }
+            ?>
+            <!-- pagination -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=1">第一頁</a>
+                    </li>
+                    <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
+                        if ($i >= 1 and $i <= $totalPages) :
+                    ?>
+                            <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                            </li>
+                    <?php
+                        endif;
+                    endfor;
+                    ?>
+                    <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $totalPages ?>">最後一頁</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
         <!-- BT5的表單控制 -->
         <!-- Button trigger modal -->

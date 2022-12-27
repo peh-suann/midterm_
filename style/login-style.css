@@ -94,6 +94,14 @@ body {
     /* height: 350px; */
     margin-top: 20%;
 }
+.add-comment-card {
+    background-color: #F8F9FA;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    /* height: 350px; */
+    /* margin-top: 20%; */
+    margin: 5vh auto;
+}
 
 h4 {
     margin: 0 auto;
