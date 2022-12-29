@@ -41,6 +41,12 @@
                 評價系統
             </a>
         </li>
+        <li>
+            <a href="<?= PROJ_ROOT ?>/admin.php" class="nav-link link-dark <?= $pageName == 'comment' ? 'active' : '' ?>">
+                <i class="fa-solid fa-comments"></i>
+                管理者列表
+            </a>
+        </li>
         <?php if (isset($_SESSION['admin'])) : ?>
             <li>
                 <a class="nav-link link-dark <?= $pageName == 'login' ? 'active' : '' ?>">

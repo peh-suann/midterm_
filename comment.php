@@ -1,6 +1,6 @@
 <?php require __DIR__ . '/parts/connect_db.php' ?>
 <?php
-$pageName = "comment";
+$pageName = "評論管理";
 $title = "評論管理";
 if (!isset($_SESSION)) {
     session_start();
@@ -8,21 +8,21 @@ if (!isset($_SESSION)) {
 
 //列表控制
 
-$perpage = 10; //每一頁的最高筆數
+$perPage = 10; //每一頁的最高筆數
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 if ($page < 1) {
     header('location: ?page=1');
     exit;
 }
-$t_sql = "SELECT COUNT(1) FROM rating";
+$t_sql = "SELECT COUNT(1) FROM `rating`";
 //取得總比數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 //總頁數
-$totalPages = ceil($totalRows / $perpage);
+$totalPages = ceil($totalRows / $perPage);
 
 $rows = [];
 $rows_sql = "SELECT * FROM `rating` WHERE 1";
-$sql = sprintf("SELECT * FROM `rating` ORDER BY `sid` ASC LIMIT %s, %s", ($page - 1) * $perpage, $perpage);
+$sql = sprintf("SELECT * FROM `rating` ORDER BY `sid` ASC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 $rows = $pdo->query($sql)->fetchAll();
 
 $member_rows = [];
@@ -74,24 +74,26 @@ $r = $pdo->query($sql_edit)->fetch();
                 <button style="color: #fff;line-height: 1.0;" type="button" class="btn btn-info">新增評論</button>
             </a>
         </div>
+
+
         <!-- 篩選功能欄位 -->
         <div class="d-flex justify-content-between align-item-center">
             <div class="row ">
                 <div class="col">
                     <form class="input-group" method="get">
-                        <div class="form-outline">
+                        <!-- <div class="form-outline">
                             <input type="search" id="accountq" name="accountq" class="form-control" placeholder="依評論人篩選" />
-                        </div>
+                        </div> -->
                         <select class="ms-1" name="scoreq" id="scoreq" placeholder="依評分篩選">
                             <option value="">依評分篩選</option>
-                            <option value="1">五星評論</option>
-                            <option value="2">四星評論</option>
+                            <option value="5">五星評論</option>
+                            <option value="4">四星評論</option>
                             <option value="3">三星評論</option>
-                            <option value="4">二星評論</option>
-                            <option value="5">一星評論</option>
+                            <option value="2">二星評論</option>
+                            <option value="1">一星評論</option>
                         </select>
-                        <select class="ms-1" name="replyq" id="replyq" placeholder="依狀態篩選">
-                            <option value="">依評價篩選</option>
+                        <select class="ms-1" name="statusq" id="statusq" placeholder="依狀態篩選">
+                            <option value="">依狀態篩選</option>
                             <option value="1">已回覆</option>
                             <option value="0">未回覆</option>
                         </select>
@@ -104,52 +106,107 @@ $r = $pdo->query($sql_edit)->fetch();
                     </form>
                 </div>
             </div>
-            <?php
-            $isSelect = false;
-            //判斷是否有篩選
-            if ((isset($_GET['accountq']) and strlen($_GET['accountq']) > 0) or (isset($_GET['replyq']) and strlen($_GET['replyq']) > 0) or (isset($_GET['scoreq']) and strlen($_GET['scoreq']) > 0)) {
-                $isSelect = true;
-            }
-            //有下篩選的話要怎麼呈現？
-            if ($isSelect) {
-                //篩選人名字
-                if (isset($_GET['accountq']) and strlen($_GET['accountq']) > 0) {
-                    $searchKey = isset($_GET['accountq']) ? ($_GET['accountq']) : '';
-                }
-                //篩選人評分
-                if (isset($_GET['accountq']) and strlen($_GET['accountq']) > 0) {
-                    $searchKey = isset($_GET['accountq']) ? ($_GET['accountq']) : '';
-                }
-                //已回覆？
-                if (isset($_GET['replyq']) and strlen($_GET['replyq']) > 0) {
-                    $searchKey = isset($_GET['replyq']) ? ($_GET['replyq']) : '';
-                    // $replyq_sql = "SELECT COUNT(1) FROM `rating` WHERE `reply`"
-
-                }
-            }
-            ?>
-            <!-- pagination -->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                        <a class="page-link" href="?page=1">第一頁</a>
-                    </li>
-                    <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
-                        if ($i >= 1 and $i <= $totalPages) :
-                    ?>
-                            <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                            </li>
-                    <?php
-                        endif;
-                    endfor;
-                    ?>
-                    <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
-                        <a class="page-link" href="?page=<?= $totalPages ?>">最後一頁</a>
-                    </li>
-                </ul>
-            </nav>
         </div>
+        <?php
+        $isSelect = false;
+        //判斷是否有篩選
+        if ((isset($_GET['accountq']) and strlen($_GET['accountq']) > 0) or (isset($_GET['statusq']) and strlen($_GET['statusq']) > 0) or (isset($_GET['scoreq']) and strlen($_GET['scoreq']) > 0)) {
+            $isSelect = true;
+        }
+        //有下篩選的話要怎麼呈現？
+        if ($isSelect) {
+            //篩選人名字
+            if (isset($_GET['accountq']) and strlen($_GET['accountq']) > 0) {
+                //搜尋後的頁面排列
+                $perPage = 10; // 每一頁最多有幾筆
+                $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                //設定搜尋keyword
+                $searchKey = isset($_GET['accountq']) ? ($_GET['accountq']) : '';
+                //計算總頁數
+                $t_member = "SELECT COUNT(1) FROM `rating` WHERE `person` LIKE '%$searchKey%' AND `display`=1";
+                $total_member = $pdo->query($t_member)->fetch(PDO::FETCH_NUM)[0];
+                $totalPage = ceil($total_member / $perPage);
+                //取出資料庫的資料
+                $first = ($page - 1) * $perPage;
+                $last = $perPage;
+
+                $rows = [];
+                $sql = "SELECT * FROM `member` WHERE `account` LIKE '%$searchKey%' AND `display`=1 ORDER BY `sid` DESC LIMIT $first, $last";
+                $rows = $pdo->query($sql)->fetchAll();
+        ?>
+                <div class="row">
+                    <div class="col">
+                        共<?= $total_member ?>筆
+                    </div>
+                </div>
+
+            <?php
+            }
+            //篩選人評分
+            if (isset($_GET['scoreq']) and strlen($_GET['scoreq']) > 0) {
+                //搜尋後的頁面排列
+                $perPage = 10; // 每一頁最多有幾筆
+                $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                //searchkey
+                $searchKey = isset($_GET['scoreq']) ? ($_GET['scoreq']) : '';
+                //計算總頁數
+                $t_member = "SELECT COUNT(1) FROM `rating` WHERE `score` LIKE '%$searchKey%' ";
+                $total_member = $pdo->query($t_member)->fetch(PDO::FETCH_NUM)[0];
+                $totalPage = ceil($total_member / $perPage);
+                //取出資料庫的資料
+                $first = ($page - 1) * $perPage;
+                $last = $perPage;
+
+                $rows = [];
+                $sql = "SELECT * FROM `rating` WHERE `score` LIKE '%$searchKey%'  ORDER BY `sid` ASC LIMIT $first, $last";
+                $rows = $pdo->query($sql)->fetchAll();
+            ?>
+                <div class="row">
+                    <div class="col">
+                        共<?= $total_member ?>筆
+                    </div>
+                </div>
+
+            <?php
+            }
+            //已回覆？
+            if (isset($_GET['statusq']) and strlen($_GET['statusq']) > 0) {
+                //搜尋後的頁面排列
+                $perPage = 10; // 每一頁最多有幾筆
+                $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+                $searchKey = isset($_GET['statusq']) ? ($_GET['statusq']) : '';
+                //計算總頁數
+                if ($searchKey === 0) {
+                    $t_member = "SELECT COUNT(1) FROM `rating` WHERE `reply` is NULL ";
+                    $total_member = $pdo->query($t_member)->fetch(PDO::FETCH_NUM)[0];
+                    $totalPage = ceil($total_member / $perPage);
+                    $first = ($page - 1) * $perPage;
+                    $last = $perPage;
+                    $rows = [];
+                    $sql = "SELECT * FROM `rating` WHERE `reply` is NULL";
+                    $rows = $pdo->query($sql)->fetchAll();
+                } else {
+                    $t_member = "SELECT COUNT(1) FROM `rating` WHERE `reply` IS NOT NULL ";
+                    $total_member = $pdo->query($t_member)->fetch(PDO::FETCH_NUM)[0];
+                    $totalPage = ceil($total_member / $perPage);
+                    $first = ($page - 1) * $perPage;
+                    $last = $perPage;
+                    $rows = [];
+                    $sql = "SELECT * FROM `rating` WHERE `reply` is NOT NULL";
+                    $rows = $pdo->query($sql)->fetchAll();
+                }
+            ?>
+                <div class="row">
+                    <div class="col">
+                        共<?= $total_member ?>筆
+                    </div>
+                </div>
+        <?php
+            }
+        }
+        ?>
+
 
         <!-- BT5的表單控制 -->
         <!-- Button trigger modal -->
@@ -197,25 +254,30 @@ $r = $pdo->query($sql_edit)->fetch();
         <table class="table table-striped table-hover align-middle">
             <thead class="">
                 <tr>
-                    <th>#</th>
-                    <th class="th_member">評論人</th>
+                    <th class="">#</th>
+                    <th class="th_person">評論人</th>
+                    <th class="th_member">會員</th>
                     <th class="th_rate">評價</th>
                     <th class="th_trails">參加行程</th>
                     <th class="th_date">日期</th>
                     <th class="th_comment">內容</th>
                     <th class="th_reply">回覆</th>
-                    <th>動作</th>
+                    <th class="th_act">動作</th>
+                    <th class=""></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($rows as $r) : ?>
                     <tr class="tr_row">
                         <td><?= $r['sid'] ?></td>
+                        <td><?= $r['person'] ?></td>
                         <td>
                             <?php foreach ($member_rows as $m_r) : ?>
                                 <?php
                                 if ($m_r['sid'] === $r['member_sid']) {
                                     echo $m_r['name'];
+                                } else {
+                                    echo '';
                                 }
                                 ?>
                             <?php endforeach ?>
@@ -356,7 +418,7 @@ $r = $pdo->query($sql_edit)->fetch();
 
         })
         // console.log(s);
-        const link = Math.ceil(s / <?= $perpage ?>);
+        const link = Math.ceil(s / <?= $perPage ?>);
         location.href = `comment.php?page=${link}`;
     }
 </script>

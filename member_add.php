@@ -184,106 +184,106 @@ $sid = isset($_GET['member_sid']) ? intval($_GET['member_sid']) : 0;
 
 <?php require __DIR__ . '/parts/scripts.php' ?>
 <script>
-// 格式設定
-const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/;
-const email_re =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zAZ]{2,}))$/;
-const personalid_re = /^[a-zA-Z]\d{9}$/;
+    // 格式設定
+    const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/;
+    const email_re =
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zAZ]{2,}))$/;
+    const personalid_re = /^[a-zA-Z]\d{9}$/;
 
 
-const checkForm = function(event) {
-    event.preventDefault();
-    // 欄位外觀回復原來的樣子
-    document.form1.querySelectorAll('input').forEach(function(el) {
-        el.style.border = '1px solid #CCCCCC';
-    });
-    document.form1.querySelectorAll('span').forEach(function(el) {
-        el.innerHTML = '';
-    });
-
-    // 欄位檢查
-    let isPass = true;
-    let field = document.form1.querySelectorAll('#name')[0];
-    let fieldtext = document.form1.querySelectorAll('#name')[1];
-    if (field.value.length < 2) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        fieldtext.innerHTML = '請填寫正確的姓名';
-    }
-
-    field = document.form1.querySelectorAll('#email')[0];
-    fieldtext = document.form1.querySelectorAll('#email')[1];
-    if (!email_re.test(field.value)) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        fieldtext.innerHTML = '請填寫正確的email格式';
-    }
-
-    field = document.form1.querySelectorAll('#mobile')[0];
-    fieldtext = document.form1.querySelectorAll('#mobile')[1];
-    if (!mobile_re.test(field.value)) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        fieldtext.innerHTML = '請填寫正確的手機號碼';
-    }
-
-    field = document.form1.querySelectorAll('#personalid')[0];
-    fieldtext = document.form1.querySelectorAll('#personalid')[1];
-    if (!personalid_re.test(field.value)) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        fieldtext.innerHTML = '請填寫正確的身分證字號';
-    }
-
-    // 密碼確認
-    field = document.form1.querySelectorAll('#password')[0];
-    fieldtext = document.form1.querySelectorAll('#password')[1];
-    let field1 = document.form1.querySelectorAll('#password2')[0];
-    let field1text = document.form1.querySelectorAll('#password2')[1];
-    if (field.value != field1.value) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        field1.style.border = '2px solid red';
-        field1text.innerHTML = '輸入密碼不相等';
-    }
-
-    // 緊急聯絡人姓名
-    field = document.form1.querySelectorAll('#emrg_name')[0];
-    fieldtext = document.form1.querySelectorAll('#emrg_name')[1];
-    if (field.value.length < 2) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        fieldtext.innerHTML = '請填寫正確的姓名';
-    }
-
-    // 緊急聯絡人手機
-    field = document.form1.querySelectorAll('#emrg_mobile')[0];
-    fieldtext = document.form1.querySelectorAll('#emrg_mobile')[1];
-    if (!mobile_re.test(field.value)) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        fieldtext.innerHTML = '請填寫正確的手機號碼';
-    }
-
-    if (isPass) {
-
-        const fd = new FormData(document.form1);
-
-        fetch('member_add-api.php', {
-            method: 'POST',
-            body: fd,
-        }).then(r => r.text()).then(obj => {
-            let obj_json = JSON.parse(obj);
-            if (obj_json['success']) {
-                alert('新增成功!');
-                location.href = 'member.php';
-            }
+    const checkForm = function(event) {
+        event.preventDefault();
+        // 欄位外觀回復原來的樣子
+        document.form1.querySelectorAll('input').forEach(function(el) {
+            el.style.border = '1px solid #CCCCCC';
+        });
+        document.form1.querySelectorAll('span').forEach(function(el) {
+            el.innerHTML = '';
         });
 
-    }
+        // 欄位檢查
+        let isPass = true;
+        let field = document.form1.querySelectorAll('#name')[0];
+        let fieldtext = document.form1.querySelectorAll('#name')[1];
+        if (field.value.length < 2) {
+            isPass = false;
+            field.style.border = '2px solid red';
+            fieldtext.innerHTML = '請填寫正確的姓名';
+        }
+
+        field = document.form1.querySelectorAll('#email')[0];
+        fieldtext = document.form1.querySelectorAll('#email')[1];
+        if (!email_re.test(field.value)) {
+            isPass = false;
+            field.style.border = '2px solid red';
+            fieldtext.innerHTML = '請填寫正確的email格式';
+        }
+
+        field = document.form1.querySelectorAll('#mobile')[0];
+        fieldtext = document.form1.querySelectorAll('#mobile')[1];
+        if (!mobile_re.test(field.value)) {
+            isPass = false;
+            field.style.border = '2px solid red';
+            fieldtext.innerHTML = '請填寫正確的手機號碼';
+        }
+
+        field = document.form1.querySelectorAll('#personalid')[0];
+        fieldtext = document.form1.querySelectorAll('#personalid')[1];
+        if (!personalid_re.test(field.value)) {
+            isPass = false;
+            field.style.border = '2px solid red';
+            fieldtext.innerHTML = '請填寫正確的身分證字號';
+        }
+
+        // 密碼確認
+        field = document.form1.querySelectorAll('#password')[0];
+        fieldtext = document.form1.querySelectorAll('#password')[1];
+        let field1 = document.form1.querySelectorAll('#password2')[0];
+        let field1text = document.form1.querySelectorAll('#password2')[1];
+        if (field.value != field1.value) {
+            isPass = false;
+            field.style.border = '2px solid red';
+            field1.style.border = '2px solid red';
+            field1text.innerHTML = '輸入密碼不相等';
+        }
+
+        // 緊急聯絡人姓名
+        field = document.form1.querySelectorAll('#emrg_name')[0];
+        fieldtext = document.form1.querySelectorAll('#emrg_name')[1];
+        if (field.value.length < 2) {
+            isPass = false;
+            field.style.border = '2px solid red';
+            fieldtext.innerHTML = '請填寫正確的姓名';
+        }
+
+        // 緊急聯絡人手機
+        field = document.form1.querySelectorAll('#emrg_mobile')[0];
+        fieldtext = document.form1.querySelectorAll('#emrg_mobile')[1];
+        if (!mobile_re.test(field.value)) {
+            isPass = false;
+            field.style.border = '2px solid red';
+            fieldtext.innerHTML = '請填寫正確的手機號碼';
+        }
+
+        if (isPass) {
+
+            const fd = new FormData(document.form1);
+
+            fetch('member_add-api.php', {
+                method: 'POST',
+                body: fd,
+            }).then(r => r.text()).then(obj => {
+                let obj_json = JSON.parse(obj);
+                if (obj_json['success']) {
+                    alert('新增成功!');
+                    location.href = 'member.php';
+                }
+            });
+
+        }
 
 
 
-};
+    };
 </script>
 <?php require __DIR__ . '/parts/html-foot.php' ?>

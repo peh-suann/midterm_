@@ -20,10 +20,13 @@ body {
     /* text-overflow: ellipsis; */
 }
 
-
+.th_person{
+    table-layout: fixed;
+    width: 70px;
+}
 .th_comment {
     table-layout: fixed;
-    width: 350px;
+    width: 300px;
 }
 
 .th_trails {
@@ -33,12 +36,20 @@ body {
 
 .th_date {
     table-layout: fixed;
-    width: 100px;
+    width: 120px;
 }
 
 .th_rate {
     table-layout: fixed;
     width: 100px;
+}
+.th_act{
+    table-layout: fixed;
+    width: 70px;
+}
+.th_act_admin{
+    table-layout: fixed;
+    width: 70px;
 }
 
 .th_reply {

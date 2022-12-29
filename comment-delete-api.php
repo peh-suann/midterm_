@@ -12,8 +12,8 @@ if (empty($sid)) {
     exit;
 }
 $pdo->query("DELETE FROM `rating` WHERE sid=$sid");
-header('location: comment.php');
 
+// header(`location: comment.php?page={$sid}`)
 if (isset($_SERVER['HTTP_REFERER'])) {
     header('location: comment.php');
 } else {

@@ -21,6 +21,7 @@ if (empty($_POST)) {
 }
 
 //定義變數與POST過來的資料
+$person = $_POST['person'] ?? '';
 $member = $_POST['member'] ?? '';
 $score = $_POST['score'] ?? '';
 $trails = $_POST['trails'] ?? '';
@@ -31,22 +32,24 @@ $submit_time = '';
 $isPass = true;
 if ($isPass) {
     $sql = "INSERT INTO `rating`(
-        `member_sid`, `trails_sid`, 
+        `person`, `member_sid`,`trails_sid`, 
         `score`, `rate_date`,`comment`
         ) VALUES (
             ?,?,
-            ?,
+            ?,?,
             NOW(),?
         )";
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
+        $person,
         $member,
         $trails,
         $score,
         $comment_text,
     ]);
     if ($stmt->rowCount()) {
+        $output['success'] = true;
         $output['msg'] = '會員新增成功';
     }
 }
