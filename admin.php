@@ -42,12 +42,36 @@ $rows = $pdo->query($sql)->fetchAll();
             </a>
         </div>
         <div class="col-6 d-flex justify-content-center">
+            <!-- 刪除通知 -->
+
+            <!-- <div class="modal fade" id="exampleModal<?= $r['sid'] ?>?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">刪除管理員</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            確認刪除此位管理員？
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a href="javascript: delete_it(<?= $r['sid'] ?>)">
+                                <button type="button" class="btn btn-primary">永久刪除</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- 表格 -->
             <table class="table table-striped table-hover align-middle ">
                 <thead>
 
                     <tr>
                         <th>#</th>
                         <th>帳號</th>
+                        <th>管理者暱稱</th>
                         <th class="th_act_admin">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </th>
@@ -61,14 +85,15 @@ $rows = $pdo->query($sql)->fetchAll();
                         <tr>
                             <td><?= $r['sid'] ?></td>
                             <td><?= $r['account'] ?></td>
+                            <td><?= $r['nickname'] ?></td>
                             <td>
                                 <a href="<?= PROJ_ROOT ?>/admin-edit.php?sid=<?= $r['sid'] ?>">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             </td>
                             <td>
-                                <a href="<?= PROJ_ROOT ?>/admin-delete.php?sid=<?= $r['sid'] ?>">
-                                    <i class="fa-solid fa-trash-can"></i>
+                                <a type="button" onclick="delItem(<?= $r['sid'] ?>)">
+                                    <i class="fa-solid fa-trash-can text-primary"></i>
                                 </a>
                             </td>
                         </tr>
@@ -101,5 +126,13 @@ $rows = $pdo->query($sql)->fetchAll();
 
 
 <script>
-
+    function delItem(sid) {
+        if (confirm(`確定要刪除編號${sid}管理員？`)) {
+            // event.currentTarget.closest('tr').remove();
+            location.href = 'admin-delete-api.php?sid=' + sid;
+            console.log('ok');
+        } else {
+            console.log('canceled');
+        }
+    }
 </script>

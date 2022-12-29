@@ -23,6 +23,7 @@ if (empty($_POST['account']) or empty($_POST['password']) or empty($_POST['passw
 }
 
 $account = $_POST['account'];
+$nickname = $_POST['nickname'];
 $password = $_POST['password'];
 $password2 = $_POST['password2'];
 $isPass = true;
@@ -34,13 +35,14 @@ if (empty($account) and !filter_var($account, FILTER_VALIDATE_EMAIL)) {
 }
 if ($isPass) {
     $sql = "INSERT INTO `admins`(
-        `account`, `password_hash`
+        `account`, `nickname`,`password_hash`
         ) VALUES (
-        ?,?
+        ?,?,?
         ) ";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
         $account,
+        $nickname,
         password_hash($password, PASSWORD_DEFAULT)
     ]);
 }

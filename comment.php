@@ -240,7 +240,6 @@ $r = $pdo->query($sql_edit)->fetch();
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-
                                 <button class="btn btn-primary mt-3 mb-3" type="submit">送出</button>
                             </div>
                         </form>

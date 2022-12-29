@@ -24,8 +24,9 @@ require __DIR__ . '/parts/html-head.php';
         background-color: #F8F9FA;
         border-radius: 5px;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-        height: 350px;
-        margin-top: 20%;
+        /* height: 350px; */
+        margin-top: 10%;
+        /* margin-bottom: 20%; */
     }
 
     h4 {
@@ -38,7 +39,7 @@ require __DIR__ . '/parts/html-head.php';
 </style>
 
 <div class="col-12" id="register_background">
-    <div class="container col-6">
+    <div class="container col-6 mb-3">
         <div class="row login-card pt-3">
             <h4>peh-suann註冊管理者</h4>
             <form name="adRegistForm" method="POST" onsubmit="checkForm(event)" novalidate>
@@ -47,22 +48,27 @@ require __DIR__ . '/parts/html-head.php';
 
                     </div>
 
-                    <label for="account" class="form-label">Email</label>
+                    <label for="account" class="form-label">Email*</label>
                     <input type="account" name="account" class="form-control" id="account" placeholder="Enter your email here" required>
                     <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                     <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">輸入密碼</label>
+                    <label for="nickname" class="form-label">輸入管理者暱稱</label>
+                    <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Enter your admin nickname here">
+                    <div class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">輸入密碼*</label>
                     <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password here">
                     <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                    <label for="password2" class="form-label">再次輸入密碼</label>
+                    <label for="password2" class="form-label">再次輸入密碼*</label>
                     <input type="password" name="password2" class="form-control" id="password2" placeholder="Verify your password">
                     <div class="form-text"></div>
                 </div>
-                <button type="submit" class="btn btn-primary">註冊</button>
+                <button type="submit" class="btn btn-primary mb-3">註冊</button>
             </form>
         </div>
     </div>
@@ -82,7 +88,7 @@ require __DIR__ . '/parts/html-head.php';
         //帳號無輸入
         let isPass = true;
 
-        const field = ['account', 'password', 'password2']
+        const field = ['account', 'nickname', 'password', 'password2']
         const field1 = document.adRegistForm.account;
 
 
