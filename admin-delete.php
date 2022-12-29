@@ -6,8 +6,12 @@ if (empty($sid)) {
     header('Location: member.php'); // 轉向到列表頁
     exit;
 }
-$pdo->query("DELETE FROM `admin` WHERE sid=$sid");
+$pdo->query("DELETE FROM `admins` WHERE sid=$sid");
 // $pdo->query("DELETE FROM `member` WHERE sid=$sid");
 
 
-header('Location: member.php');
+if (isset($_SERVER['HTTP_REFERER'])) {
+    header('location: admin.php');
+} else {
+    header('location:' . $_SERVER['HTTP_REFERER']);
+}

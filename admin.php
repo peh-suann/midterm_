@@ -129,7 +129,7 @@ $rows = $pdo->query($sql)->fetchAll();
     function delItem(sid) {
         if (confirm(`確定要刪除編號${sid}管理員？`)) {
             // event.currentTarget.closest('tr').remove();
-            location.href = 'admin-delete-api.php?sid=' + sid;
+            location.href = 'admin-delete.php?sid=' + sid;
             console.log('ok');
         } else {
             console.log('canceled');
