@@ -13,7 +13,7 @@ if ($page < 1) {
   exit;
 }
 
-$t_sql = "SELECT COUNT(1) FROM coupon";
+$t_sql = "SELECT COUNT(1) FROM coupon WHERE `display`=1";
 // 取得總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 // 總頁數
@@ -26,16 +26,16 @@ if ($totalRows > 0) {
     header('Location: ?page=' . $totalPages);
     exit;
   }
-
+  // 折數的篩選
   if (isset($_GET["coupon_rate"])) {
     $coupon_rate = $_GET["coupon_rate"];
-    $sql = "SELECT * FROM `coupon` WHERE `coupon_rate`=$coupon_rate";
-    // 取空值(未選擇)會跳錯
+    $sql = "SELECT * FROM `coupon`  WHERE `coupon_rate`=$coupon_rate AND `display`=1";
+    // 取空值(未選擇)會跳錯，所以值>0
     if ($coupon_rate > 0) {
       $rows = $pdo->query($sql)->fetchAll();
     }
   } else {
-    $sql = sprintf("SELECT * FROM `coupon` ORDER BY `sid` LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT * FROM `coupon` WHERE `display`=1 ORDER BY `sid` LIMIT %s, %s ", ($page - 1) * $perPage, $perPage);
 
     $rows = $pdo->query($sql)->fetchAll();
   }
@@ -46,7 +46,13 @@ foreach ($rows as $coupon_rate) {
   $rateArr[$coupon_rate['coupon_rate']] = $coupon_rate['coupon_rate'];
 }
 
-// print_r($rateArr);
+
+
+header('application/json');
+$text_sql = "SELECT `sid`,`start_date_coup`,`end_date_coup`,`coupon_status` FROM `coupon` WHERE `sid`";
+$t_s = $pdo->query($text_sql)->fetchAll();
+
+
 
 ?>
 <?php require __DIR__ . '/parts/html-head.php' ?>
@@ -63,7 +69,6 @@ foreach ($rows as $coupon_rate) {
 
       <!-- filter:篩選coupon_rate -->
 
-
       <form class="input-group  mb-1" action="coupon_list.php" method="get" class="">
         <a href="./coupon_list.php" style="color: #fff;text-decoration:none;"><button type="button" class="btn btn-primary ms-1">返回優惠卷列表</button></a>
         <a href="./coupon_add.php" style="color: #fff;text-decoration:none;"><button type="button" class="btn btn-primary ms-1">新增優惠卷</button></a>
@@ -77,7 +82,8 @@ foreach ($rows as $coupon_rate) {
           <option value="7">7折</option>
           <option value="6">6折</option>
           <option value="5">5折</option>
-          <!-- FIXME:抓的折數會重複 -->
+
+          <!-- 抓的折數會重複 -->
           <? #php foreach ($rows as $coupon_rate) : 
           ?>
           <!-- <option value="<? #= $coupon_rate["coupon_rate"] 
@@ -106,6 +112,7 @@ foreach ($rows as $coupon_rate) {
         <th scope="col">適用開始期限</th>
         <th scope="col">適用結束期限</th>
         <th scope="col">優惠卷狀態</th>
+
         <th scope="col">
           <i class="fa-solid fa-pen-to-square"></i>
         </th>
@@ -116,6 +123,7 @@ foreach ($rows as $coupon_rate) {
     </thead>
     <tbody>
       <?php foreach ($rows as $r) : ?>
+
         <tr>
           <td><?= $r['sid'] ?></td>
           <!-- <td><? #= $r['promo_name'] 
@@ -128,17 +136,46 @@ foreach ($rows as $coupon_rate) {
           <td><?= $rateArr[$r["coupon_rate"]] ?></td>
           <td><?= $r['start_date_coup'] ?></td>
           <td><?= $r['end_date_coup'] ?></td>
-          <td><?= $r['coupon_status'] ?></td>
+          <!-- FIXME:以end_date_coup判斷是否過期 -->
+          <!-- <td><? #= $r['coupon_status'] 
+                    ?></td> -->
+
+
+          <td><?php if ($r['end_date_coup'] > date("Y-m-d H:i:s") and $r['start_date_coup'] < date("Y-m-d H:i:s")) {
+                echo '可使用';
+              } else {
+                echo '已失效';
+              }
+              ?></td>
 
 
           <td>
+
             <a href="coupon_edit.php?sid=<?= $r['sid'] ?>">
               <i class="fa-solid fa-pen-to-square"></i>
             </a>
           </td>
           <td>
-            <a href="javascript: delete_it(<?= $r['sid'] ?>)">
-              <i class="fa-solid fa-trash-can"></i>
+            <a>
+              <i class="fa-solid fa-trash-can text-secondary" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="delete_it(<?= $r['sid'] ?>)"></i>
+              <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deleteModalLabel">刪除資料</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-footer">
+                      <a id="fake-delete" style="color: #fff;text-decoration:none;" href="">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">列表中刪除</button>
+                      </a>
+                      <a id="delete" style="color: #fff;text-decoration:none;" href="">
+                        <button type="button" class="btn btn-danger">永久刪除</button>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </a>
           </td>
         </tr>
@@ -171,16 +208,20 @@ foreach ($rows as $coupon_rate) {
 </div>
 <?php require __DIR__ . '/parts/scripts.php' ?>
 <script>
-  // const coupon1 = function() {
-
-  //   fetch('coupon_add_api.php');
-  // };
-
   // 刪除
+  // function delete_it(sid) {
+  //   if (confirm(`是否要刪除編號為 ${sid} 的資料?`)) {
+  //     location.href = 'coupon_delete.php?sid=' + sid;
+  //   }
+  // }
+  // FIXME:
   function delete_it(sid) {
-    if (confirm(`是否要刪除編號為 ${sid} 的資料?`)) {
-      location.href = 'coupon_delete.php?sid=' + sid;
-    }
+    const fakedelete = document.querySelector('#fake-delete');
+    console.log(fakedelete);
+    fakedelete.href = `conpon_fake_delete.php?sid=${sid}`;
+    // 永久刪除
+    const mdelete = document.querySelector('#delete');
+    mdelete.href = `coupon_delete.php?sid=${sid}`;
   }
 </script>
 <?php require __DIR__ . '/parts/html-foot.php' ?>

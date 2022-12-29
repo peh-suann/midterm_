@@ -32,55 +32,62 @@ if (empty($r)) {
       <div class="card">
         <div class="card-body">
 
-          <form name="form1" onsubmit="checkForm(event)"　>
+          <form name="form1" onsubmit="checkForm(event)" 　>
 
             <input type="hidden" name="sid" value="<?= $r['sid'] ?>">
             <!-- 活動名稱先隱藏 -->
             <!-- <div class="mb-3 " >
               <label for="promo_name" class="form-label" >活動名稱</label>
-              <input type="text" class="form-control" id="promo_name" name="promo_name" required value="<?#= $r['promo_name'] ?>">
+              <input type="text" class="form-control" id="promo_name" name="promo_name" required value="<? #= $r['promo_name'] 
+                                                                                                        ?>">
               <div class="form-text"></div>
             </div> -->
 
             <div class="mb-3">
-              <label for="coupon_name" class="form-label">優惠卷名稱</label>
+              <label for="coupon_name" class="form-label">優惠卷名稱*</label>
               <input type="text" class="form-control" id="coupon_name" name="coupon_name" value="<?= $r['coupon_name'] ?>">
               <div class="form-text"></div>
             </div>
             <div class="mb-3">
-              <label for="coupon_code" class="form-label">優惠碼</label>
+              <label for="coupon_code" class="form-label">優惠碼*</label>
               <input type="text" class="form-control" id="coupon_code" name="coupon_code" value="<?= $r['coupon_code']
                                                                                                   ?>">
               <div class="form-text"></div>
             </div>
             <div class="mb-3">
-              <label for="min_purchase" class="form-label">最低消費金額</label>
+              <label for="min_purchase" class="form-label">最低消費金額*</label>
               <input type="text" class="form-control" id="min_purchase" name="min_purchase" value="<?= $r['min_purchase']
                                                                                                     ?>">
               <div class="form-text"></div>
             </div>
             <div class="mb-3">
-              <label for="coupon_rate" class="form-label">折數</label>
+              <label for="coupon_rate" class="form-label">折數*</label>
               <input type="text" class="form-control" id="coupon_rate" name="coupon_rate" value="<?= $r['coupon_rate']
                                                                                                   ?>">
               <div class="form-text"></div>
             </div>
             <div class="mb-3">
-              <label for="start_date_coup" class="form-label">適用開始期限</label>
+              <label for="start_date_coup" class="form-label">適用開始期限*</label>
               <input type="datetime-local" class="form-control" id="start_date_coup" name="start_date_coup" value="<?= $r['start_date_coup'] ?>">
               <div class="form-text"></div>
             </div>
             <div class="mb-3">
-              <label for="end_date_coup" class="form-label">適用結束期限</label>
+              <label for="end_date_coup" class="form-label">適用結束期限*</label>
               <input type="datetime-local" class="form-control" id="end_date_coup" name="end_date_coup" value="<?= $r['end_date_coup'] ?>">
               <div class="form-text"></div>
             </div>
-            <label for="coupon_status" class="form-label">優惠卷狀態</label>
-            <select class="form-select" aria-label="Default select example" id="coupon_status" name="coupon_status" >
-              <option value="">可否使用優惠卷</option>
-              <option value="失效" <?= $r['coupon_status'] == "失效" ? 'selected' : '' ?>>失效</option>
-              <option value="可使用" <?= $r['coupon_status'] == "可使用" ? 'selected' : '' ?>>可使用</option>
-            </select>
+            <!-- <div class="mb-3">
+              <label for="coupon_status" class="form-label">優惠卷狀態</label>
+              <select class="form-select" aria-label="Default select example" id="coupon_status" name="coupon_status">
+
+                FIXME:toggle coupon status
+                <option value="">可否使用優惠卷</option>
+                <option value="可使用" <? #= $r['coupon_status'] == "可使用" ? 'selected' : ''
+                                    ?>>可使用</option>
+                <option value="已失效" <? #= $r['coupon_status'] == "已失效" ? 'selected' : ''
+                                    ?>>已失效</option>
+              </select>
+            </div> -->
 
 
             <div class="alert alert-primary" role="alert" id="myAlert" style="display: none;"></div>
@@ -108,19 +115,16 @@ if (empty($r)) {
   }
 
   const checkForm = function(event) {
-    console.log(0);
     event.preventDefault();
 
     const fd = new FormData(document.form1);
 
-    console.log(1);
     fetch('coupon_edit_api.php', {
 
       method: 'POST',
       body: fd,
     }).then(r => r.json()).then(obj => {
       console.log(obj);
-      console.log(2);
       if (obj.success) {
         console.log(obj.success);
         alert('修改成功');
@@ -129,8 +133,12 @@ if (empty($r)) {
         // 回到上一頁，並刷新
         location.href = document.referrer;
       } else {
-        if (obj.msg) {
-          showAlert(obj.msg);
+        for (let id in obj.errors) {
+          const field = document.querySelector(`#${id}`);
+          // console.log(field);
+          field.style.border = '2px solid red';
+          field.closest('.mb-3').querySelector('.form-text').innerHTML = obj.errors[id];
+          // field.nextElementSibling.innerHTML = obj.errors[id];
         }
       }
     })

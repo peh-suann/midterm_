@@ -24,7 +24,7 @@ if ($totalRows > 0) {
   }
   // DESC
   // $sql = sprintf("SELECT * FROM `coupon` ORDER BY `sid` LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
-  $sql = sprintf("SELECT `sid`, `promo_name`, `coupon_name`, `coupon_code`, `min_purchase`, `coupon_rate`, `start_date_coup`, `end_date_coup`, `coupon_status` FROM `coupon` WHERE `coupon_status`='可使用'");
+  $sql = sprintf("SELECT `sid`, `promo_name`, `coupon_name`, `coupon_code`, `min_purchase`, `coupon_rate`, `start_date_coup`, `end_date_coup`, `coupon_status` FROM `coupon` WHERE `coupon_status`='可使用' AND `display`=1");
   $rows = $pdo->query($sql)->fetchAll();
 }
 
@@ -38,6 +38,7 @@ if ($totalRows > 0) {
   <div class="row">
     <div class="col">
       <h2>可使用優惠卷</h2>
+      <!-- FIXME: -->
       <a href="./coupon_list.php" style="color: #fff;text-decoration:none;"><button type="button" class="btn btn-primary ms-1">優惠卷列表</button></a>
       <a href="./coupon_add.php" style="color: #fff;text-decoration:none;"><button type="button" class="btn btn-primary ms-1">新增優惠卷</button></a>
     </div>
