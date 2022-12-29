@@ -60,8 +60,8 @@ if ($total_rows > 0) {
 
     <!-- 😀😀😀😀😀😀😀😀😀😀😀😀😀 -->
 
-    <!-- filter -->
-    <div class="row mt-3">
+    <div class="row mt-3 mb-3">
+        <!-- filter -->
         <div class="col">
             <form class="input-group" method="get">
                 <select class="ms-1" name="status_filter" id="status_filter" placeholder="依狀態篩選">
@@ -75,7 +75,13 @@ if ($total_rows > 0) {
                 </button>
             </form>
         </div>
+        <!-- add order -->
+        <!-- <a href="<?php //PROJ_ROOT ?>/order_add.php" class="w-auto">
+            <button class="btn btn-primary me-3 w-auto">新增訂單</button>
+        </a> -->
     </div>
+
+
 
     <?php
     // 判斷是否有篩選
@@ -121,6 +127,9 @@ if ($total_rows > 0) {
     <table class="table table-striped">
         <thead>
             <tr>
+                <!-- <th scope="col">
+                    <input type="checkbox" id="selectAll" name="scales">
+                </th> -->
                 <th scope="col">#</th>
                 <th scope="col">訂購日期</th>
                 <th scope="col">會員名稱</th>
@@ -139,6 +148,9 @@ if ($total_rows > 0) {
         <tbody>
             <?php foreach ($rows as $r) : ?>
                 <tr class="align-middle">
+                    <!-- <th>
+                        <input type="checkbox" id="select<?php //$r['sid'] ?>" name="select<?= $r['sid'] ?>">
+                    </th> -->
                     <th><?= "021215" . $r['sid'] ?></th>
                     <td><?= $r['order_date'] ?></td>
                     <td>

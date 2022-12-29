@@ -67,7 +67,7 @@ for ($i = 0; $i < count($same_order_sid_rows); $i++) {
             <a href="./order.php" class="w-auto me-auto p-0">
                 <button type="button" class="btn btn-primary">上一頁</button>
             </a>
-            <button type="submit" class="btn btn-danger w-auto">修改</button>
+            <button type="submit" name="edit_button" class="btn btn-danger w-auto">修改</button>
             <button type="button" class="btn btn-danger w-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 刪除
             </button>
@@ -81,15 +81,15 @@ for ($i = 0; $i < count($same_order_sid_rows); $i++) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        確認刪除此筆訂單？
+                        確認刪除此筆訂單ㄇ？
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <a href="javascript: fake_delete_it(<?= $current_sid ?>)">
-                            <button type="button" class="btn btn-primary">從列表中刪除</button>
+                            <button type="button" class="btn btn-primary">軟刪除</button>
                         </a>
                         <a href="javascript: delete_it(<?= $current_sid ?>)">
-                            <button type="button" class="btn btn-primary">永久刪除</button>
+                            <button type="button" class="btn btn-primary">硬刪除</button>
                         </a>
                     </div>
                 </div>
@@ -174,12 +174,13 @@ for ($i = 0; $i < count($same_order_sid_rows); $i++) {
                                                         確認刪除此項商品？
                                                     </div>
                                                     <div class="modal-footer">
+                                                        <?= $same_order_sid_rows[$i]['sid'] ?>
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                         <a href="javascript: fake_delete_product(<?= $current_sid ?>, <?= $same_order_sid_rows[$i]['sid'] ?>)">
-                                                            <button type="button" class="btn btn-primary">從列表中刪除</button>
+                                                            <button type="button" class="btn btn-primary">軟刪除</button>
                                                         </a>
                                                         <a href="javascript: delete_product(<?= $current_sid ?>, <?= $same_order_sid_rows[$i]['sid'] ?>)">
-                                                            <button type="button" class="btn btn-primary">永久刪除</button>
+                                                            <button type="button" class="btn btn-primary">硬刪除</button>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -187,34 +188,27 @@ for ($i = 0; $i < count($same_order_sid_rows); $i++) {
                                         </div>
                                     </tr>
                                 <?php endfor ?>
-                                <!-- <tr>
-                                    <th><?php //count($same_order_sid_rows) + 1 
-                                        ?></th>
+                                <tr>
+                                    <th class="align-middle"><?= count($same_order_sid_rows) + 1 ?></th>
                                     <td>
-                                        <select class="form-select form-select-sm add_product" aria-label=".form-select-sm example">
-                                            <?php //foreach ($trails_rows as $t_r) : 
-                                            ?>
-                                                <option value="<?php //$t_r['sid'] 
-                                                                ?>"><?php //$t_r['trail_name'] 
-                                                                                        ?></option>
-                                            <?php //endforeach 
-                                            ?>
+                                        <select class="form-select form-select-sm add_product" aria-label=".form-select-sm example" name="product_name">
+                                            <option value="chose product" disabled selected>請選取商品</option>
+                                            <?php foreach ($trails_rows as $t_r) : ?>
+                                                <option value="<?= $t_r['sid'] ?>"><?= $t_r['trail_name'] ?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </td>
                                     <td>
-                                        <input class="add_product" type="number" name="" id="" value="1" style="width: 50px">
+                                        <input class="add_product" type="number" name="product_amount" id="" value="1" style="width: 50px">
                                     </td>
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <a href="javascript: fake_delete_it(<?php //$current_sid 
-                                                                            ?>)">
-                                            <button type="button" class="btn btn-success btn-sm">
-                                                <i class="fa-solid fa-plus"></i>
-                                            </button>
-                                        </a>
+                                        <button type="submit" name="add_button" class="btn btn-success btn-sm">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </button>
                                     </td>
-                                </tr> -->
+                                </tr>
                             </tbody>
                         </table>
                     </td>
@@ -275,13 +269,30 @@ for ($i = 0; $i < count($same_order_sid_rows); $i++) {
             body: fD,
         }).then(r => r.json()).then(obj => {
             console.log(obj);
-            if (obj.success1 || obj.success2) {
+            if (obj.success1 || obj.success2 || obj.success) {
                 alert('Changed!');
                 window.location.replace('order_edit.php?sid=<?= $current_sid ?>');
-            } else if (obj.msg1 && obj.msg2) {
+            } else if (obj.msg1) {
+                alert('No Data Changed!');
+            } else if (obj.msg2) {
                 alert('No Data Changed!');
             }
         })
+
+        // fetch('order_add_api.php?sid=<?php //$current_sid ?>', {
+        //     method: 'POST',
+        //     body: fD,
+        // }).then(r => r.json()).then(obj => {
+        //     console.log(obj);
+        //     if (obj.success) {
+        //         alert('Changed!');
+        //         window.location.replace('order_edit.php?sid=<?php //$current_sid ?>');
+        //     } else if (obj.msg1) {
+        //         alert('Chose Product!');
+        //     } else if (obj.msg2) {
+        //         alert('No Data Changed!');
+        //     }
+        // })
     }
 </script>
 <?php require __DIR__ . '/parts/html-foot.php' ?>

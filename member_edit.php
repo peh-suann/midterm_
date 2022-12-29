@@ -14,19 +14,18 @@ if ($sid == 0) {
     exit;
 }
 
-$sql = "SELECT * FROM member WHERE sid=$sid";
+$sql = "SELECT m.*, 
+    e.emrg_name, e.emrg_relationship, e.emrg_mobile 
+    FROM `member` m 
+    JOIN `emergency_contact` e 
+    ON m.sid=e.`member_sid` 
+    WHERE sid=$sid;";
 $r = $pdo->query($sql)->fetch();
 if (empty($r)) {
     header('Location: member.php'); // 轉向到列表頁
     exit;
 }
 
-$sql = "SELECT * FROM `emergency_contact` WHERE `member_sid`=$sid";
-$re = $pdo->query($sql)->fetch();
-if (empty($re)) {
-    header('Location: member.php'); // 轉向到列表頁
-    exit;
-}
 
 ?>
 <?php require __DIR__ . '/parts/html-head.php' ?>
@@ -102,17 +101,17 @@ if (empty($re)) {
                     <tr>
                         <th scope="row">姓名*</th>
                         <td><input type="text" class="form-control" id="ermg_name" name="ermg_name" required
-                                value="<?= htmlentities($re['emrg_name']) ?>"></td>
+                                value="<?= htmlentities($r['emrg_name']) ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row">手機*</th>
                         <td><input type="tel" class="form-control" id="emrg_mobile" name="emrg_mobile" required
-                                value="<?= $re['emrg_mobile'] ?>"></td>
+                                value="<?= $r['emrg_mobile'] ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row">關係</th>
                         <td><input type="text" class="form-control" id="emrg_relationship" name="emrg_relationship"
-                                required value="<?= $re['emrg_relationship'] ?>"></td>
+                                required value="<?= $r['emrg_relationship'] ?>"></td>
                     </tr>
                 </table>
                 <button type="submit" class="btn btn-primary">完成編輯</button>

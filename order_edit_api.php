@@ -25,27 +25,8 @@ $output = [
 ];
 
 $amount = intval('');
-// $sql_amount = '';
-// $stmt_amount = '';
-// $num = 0;
-// foreach($same_order_sid_rows as $s_r){
-//     $amount.$num = intval($_POST['product_amount'.$num]);
 
-//     $sql_amount.$num = "UPDATE `order_detail` SET `amount`=? WHERE `order_sid`=?";
-//     $stmt_amount.$num = $pdo->prepare($sql_amount.$num);
-//     $stmt_amount.$num->execute([
-//         $amount.$num,
-//         $current_sid
-//     ]);
-
-//     if ($stmt_amount.$num->rowCount()) {
-//         $output['success'] = true;
-//     } else {
-//         $output['msg'] = 'no data changes';
-//     }
-//     $num = $num + 1;
-// }
-
+// 更改數量
 for ($i = 0; $i < count($same_order_sid_rows); $i++) {
     $amount = intval($_POST['product_amount' . $i]);
     $this_sid = $same_order_sid_rows[$i]['sid'];
@@ -57,16 +38,9 @@ for ($i = 0; $i < count($same_order_sid_rows); $i++) {
         $current_sid,
         $this_sid
     ]);
-
-    if ($stmt_amount->rowCount()) {
-        $output['success2'] = true;
-        $output['code2'] = 100;
-    } else {
-        $output['msg2'] = 'no data changes';
-        $output['code2'] = 200;
-    }
 }
 
+// 更改狀態
 $status = $_POST['status'] ?? '';
 $memo = $_POST['memo'] ?? '';
 
@@ -83,6 +57,42 @@ $stmt->execute([
     $memo,
     $current_sid
 ]);
+
+$product_name = $_POST['product_name'] ?? '';
+$product_amount = $_POST['product_amount'] ?? '';
+
+// 新增商品
+if (empty($product_name)) {
+    $output['msg2'] = 'chose product';
+} else {
+    $sql_add = "INSERT INTO `order_detail`(
+    `order_sid`, 
+    `trails_sid`, 
+    `amount`, 
+    `create_date`, 
+    `fake_delete`
+    ) VALUES (
+        ?, 
+        ?, 
+        ?, 
+        NOW(),
+        0
+        )";
+
+    $stmt_add = $pdo->prepare($sql_add);
+
+    $stmt_add->execute([
+        $current_sid,
+        $product_name,
+        $product_amount
+    ]);
+
+    if ($stmt_add->rowCount()) {
+        $output['success'] = true;
+    } else {
+        $output['msg1'] = 'no data changes';
+    }
+}
 
 if ($stmt->rowCount()) {
     $output['success1'] = true;
