@@ -32,7 +32,7 @@ $rows = $pdo->query($sql)->fetch();
                     <tr>
                         <th scope="row" class="th_od">管理者Email</th>
                         <td>
-                            <!-- <input type="hidden" name="sid" id="sid" value=""></input> -->
+                            <input type="hidden" name="sid" id="sid" value="<?= $rows['sid']; ?>"></input>
                             <input type="text" name="account" id="account" value="<?= $rows['account']; ?>"></input>
                         </td>
                     </tr>
@@ -53,15 +53,17 @@ $rows = $pdo->query($sql)->fetch();
 <?php require __DIR__ . '/parts/scripts.php' ?>
 <script>
     const checkForm = function(event) {
+        console.log('沒出去');
         event.preventDefault();
         const fd = new FormData(document.admin_edit);
-
+        console.log(fd);
         fetch('admin-edit-api.php', {
             method: 'POST',
             body: fd
-        }).then(r => r.text()).then(obj => {
-            obj_JSON = JSON.parse(obj);
-            console.log(obj_JSON);
+        }).then(r => r.json()).then(obj => {
+            // obj_JSON = JSON.parse(obj);
+            console.log(obj);
+            console.log('有回來');
         })
         location.href = 'admin.php';
     }

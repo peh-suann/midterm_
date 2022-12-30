@@ -1,19 +1,19 @@
 <?php
 
-define('PROJ_ROOT', '/peh-suann.github.io');
-
-$db_host = 'localhost';
-$db_user = 'root';
-$db_pass = '0921218220';
-$db_name = 'peh-suann-lai';
-
-
 // define('PROJ_ROOT', '/peh-suann.github.io');
 
-// $db_host = '192.168.21.84';
-// $db_user = 'mountain';
-// $db_pass = 'mountaindude55';
-// $db_name = 'mountain';
+// $db_host = 'localhost';
+// $db_user = 'root';
+// $db_pass = '0921218220';
+// $db_name = 'peh-suann-lai';
+
+
+define('PROJ_ROOT', '/peh-suann.github.io');
+
+$db_host = '192.168.21.84';
+$db_user = 'mountain';
+$db_pass = 'mountaindude55';
+$db_name = 'mountain';
 
 $dsn = "mysql:host={$db_host};dbname={$db_name};charset=utf8";
 
